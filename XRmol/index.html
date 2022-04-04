@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    
+    <title>XRmol</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.min.js" integrity="sha512-LW9+kKj/cBGHqnI4ok24dUWNR/e8sUD8RLzak1mNw5Ja2JYCmTXJTF5VpgFSw+VoBfpMvPScCo2DnKTIUjrzYw==" crossorigin="anonymous"></script>
+    
+    
+</head>
+<body>
+
+    <div id="content">
+        <!-- Sidebar  -->
+    <div id="sidebar" class="active">   <!-- HIDDEN IN MOBILE DEVICES -->
+
+        <div class="sidebar-header" >
+            <h5 id="sidebar-header"></h5>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>      
+                
+                <a href="#loadsubmenu" class="amenu" data-toggle="collapse" aria-expanded="false">
+                    <div class="divmenu"> 
+                        <img class="buttonimg" src="img/ic_search.png" alt="" width="20px" height="20px">
+                    <p class="menuitem">Load PDB</p>
+                    </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="loadsubmenu">
+                    <li>
+                        <label class="menu" id="pdbmenu">
+                            <div id="pdbbuttons">
+                            <form name="pdbupload" enctype="multipart/form-data" method="post">               
+                                <input type="file" name="file" id="file" 
+                                class="inputfile" />
+                                <label for="file" class ="labelfile">Upload</label>
+                            </form>
+                                
+                            <div class="input-group" id="pdbsearch">
+                                <input class="form-control" id="pdbname">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-light " id="searchpdbbutton">Search</button>
+                                </span>
+                            </div>
+                            </div>
+                        </label>
+
+                    </li>
+                </ul>
+            </li>
+            <li>
+
+                <a href="#vizsubmenu" class="amenu" data-toggle="collapse" aria-expanded="false">
+                    <div class="divmenu"> 
+                        <img class="buttonimg" src="img/ic_desktop_mac.png" alt="" width="20px" height="20px">
+                        <p class="menuitem">Visualization Mode</p>
+                    </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="vizsubmenu">
+                    <li>
+                        <label class="menu">
+                            <input type="checkbox" id="VRmode" autocomplete="off" >
+                            <span class="menubutton" id="VR"></span>   
+                            <i class="fas fa-info-circle" id="infovizmodeVR"></i>
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" autocomplete="off" id="ardesktop">
+                            <span class="menubutton" id="AR">Augmented Reality</span>
+                        </label>
+                    </li>
+                </ul>
+            </li>
+            <li>
+
+                <a href="#mainsubmenu" data-toggle="collapse" aria-expanded="false" class="amenu">
+                     <div class="divmenu"> 
+                        <img class="buttonimg" src="img/structure.png" alt="" width="20px" height="20px">
+                        <p class="menuitem">Main Structure</p>
+                    </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="mainsubmenu">
+                    <li>
+                        <label class ="menu" style="display: flex">
+                            <input type="checkbox" id="Check_atoms"  autocomplete="off">
+                            <span class="menubutton">Sphere</span>
+                            <a href="#opacitymenu" data-toggle="collapse" aria-expanded="false" id="opacitylink"><i class="fas fa-chevron-down"></i></a>
+                        </label>
+                        <ul class="collapse list-unstyled collapse-child" id="opacitymenu">
+                            <li>
+                                <label class="menu" style="display: flex">
+                                    <p id="opacityp">Opacity</p>
+                                    <div class="slider" style="display: flex">
+                                        <input type="range" class="atomslider" min="0" max="1" step=".01" value="1" onchange="rangevalue1.value=value"/>
+                                        <output class="rangevalue rangevalue1" id="rangevalue1">1</output>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label class="menu">
+                            <input type="checkbox" id="Check_sticks" autocomplete="off">
+                            <span class="menubutton">Ball and Rod</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class="menu">
+                            <input type="checkbox" id="Check_wireframe" autocomplete="off">
+                            <span class="menubutton">Wireframe</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_Secondary" checked autocomplete="off">
+                            <span class="menubutton">Secondary Structure</span>   
+                        </label>
+
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#ligandssubmenu" data-toggle="collapse" aria-expanded="false" class="amenu">     <div class="divmenu"> 
+                        <img class="buttonimg" src="img/ligand.png" alt="" width="20px" height="23px">
+                        <p class="menuitem">Ligands</p>
+                    </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="ligandssubmenu">
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_ligands" autocomplete="off">
+                            <span class="menubutton">Sphere</span>   
+                        </label>                            
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_ligands_sticks" autocomplete="off">
+                            <span class="menubutton">Ball and Rod</span>   
+                        </label>     
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#solventsubmenu" class="amenu" data-toggle="collapse" aria-expanded="false">
+                    <div class="divmenu"> 
+                        <img class="buttonimg" src="img/water.png" alt="" width="20px" height="15px">
+                        <p class="menuitem">Non-bonded atoms</p>
+                    </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="solventsubmenu">
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_solvent" autocomplete="off">
+                            <span class="menubutton">Water Sphere</span>   
+                        </label>  
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#surfacesubmenu" class="amenu" data-toggle="collapse" aria-expanded="false">
+                    <div class="divmenu"> 
+                        <!--<img class="buttonimg" src="img/water.png" alt="" width="20px" height="15px">-->
+                        <i class="fas fa-splotch buttonimg"></i>
+                        <p class="menuitem">Surface</p>
+                    </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="surfacesubmenu">
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="check_vdw_surface" autocomplete="off">
+                            <span class="menubutton">Van Der Waals
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="vdwswitch">
+                                <label class="custom-control-label" for="vdwswitch">wireframe</label>
+                            </div>
+                            </span>   
+                            
+                        </label>  
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="check_sas_surface" autocomplete="off">
+                            <span class="menubutton">Solvent Accessible
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="sasswitch">
+                                <label class="custom-control-label" for="sasswitch">wireframe</label>
+                            </div></span> 
+                        </label>  
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="check_ses_surface" autocomplete="off">
+                            <span class="menubutton">Solvent Excluded
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="sesswitch">
+                                <label class="custom-control-label" for="sesswitch">wireframe</label>
+                            </div></span>   
+                        </label>  
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="check_ms_surface" autocomplete="off">
+                            <span class="menubutton">Molecular
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="mswitch">
+                                <label class="custom-control-label" for="mswitch">wireframe</label>
+                            </div></span>   
+                        </label>  
+                    </li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="#colormenu" class="amenu" data-toggle="collapse" aria-expanded="false">
+                    <div class="divmenu"> 
+                        <img class="buttonimg" src="img/color.png" alt="" width="20px" height="20px">
+                        <p class="menuitem">Color</p>
+                    </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="colormenu">
+                    <li>
+                         <label class ="menu">
+                            <span class="menubutton activeSpan" id="elemspan">By Element</span>   
+                        </label>                        
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton" id="residuespan">By residue/ nucleotides</span>   
+                        </label> 
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton" id="secspan">By Secondary Structure</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton" id="chainspan">By Chain</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton" id="bfactorspan">By B-Factor (fixed)</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton" id="hydrospan">By Hydrofobicity</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton" id="spectrumspan">By Spectrum</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton" id="chainspectrumspan">By Chain Spectrum</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton disabled" id="bondspan" >By bond</span>   
+                        </label>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#noncovbonds" class="amenu" data-toggle="collapse" aria-expanded="false">
+                    <div class="divmenu">  
+                        <img class="buttonimg" src="img/bond.png" alt="" width="20px" height="20px">
+                        <p class="menuitem">Bonds</p>
+                    </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="noncovbonds">
+                    <li>
+                        <div class="menu" >
+                            <div id="rinbuttons">
+                                <button type="button" class="btn btn-danger xmlbutton">Parse</button>
+                                <!--<button type="button" id="rinbutton" class="btn btn-light rinbutton" disabled data-toggle="modal" data-target="#rinmodal">Show RIN</button>-->
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_noncov_atoms" autocomplete="off" disabled >
+                            <span class="menubutton">Show only atoms involved in bonds</span>   
+                        </label>                            
+                    </li>
+                    <li>                
+                        <label class ="menu">
+                            <span class="menubutton disabled" id="Check_noncovdistancecolor">Color by distance</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton disabled" id="Check_noncovtypecolor">Color by type</span>   
+                        </label>                            
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_hbond" autocomplete="off" disabled >
+                            <span class="menubutton">Hydrogen bond</span>   
+                        </label>                            
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_vdw" autocomplete="off" disabled>
+                            <span class="menubutton">Van der Waals interactions</span>   
+                        </label>     
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_sbond" autocomplete="off" disabled>
+                            <span class="menubutton">Disulphide bridges</span>   
+                        </label>     
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_ionic" autocomplete="off" disabled>
+                            <span class="menubutton">Salt bridges</span>   
+                        </label>     
+                    </li>
+                     <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_pipistack" autocomplete="off" disabled>
+                            <span class="menubutton">pi-pi stacking</span>   
+                        </label>     
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_pication" autocomplete="off" disabled>
+                            <span class="menubutton">π-cation</span>   
+                        </label>     
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <input type="checkbox" id="Check_GENERIC" autocomplete="off" disabled>
+                            <span class="menubutton">Inter-Atomic Contact</span>   
+                        </label>     
+                    </li>                
+                </ul>
+            </li>
+            <li>
+               <a href="#infomenu" class="amenu" data-toggle="collapse" aria-expanded="false">
+                   <div class="divmenu"> 
+                    <img class="buttonimg" src="img/ic_info.png" alt="" width="20px" height="20px">
+                        <p class="menuitem">More Information</p>
+                    </div></a>
+                <ul class="collapse collapse-parent list-unstyled" id="infomenu">
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton" id="infospan" >Protein Information</span>   
+                        </label>
+                    </li>
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton openpdbbutton">Open PDB</span>   
+                        </label>
+                    </li>
+                </ul>
+            </li>
+            <li>
+            <a href="#screenmenu" class="amenu" data-toggle="collapse" aria-expanded="false">
+                <div class="divmenu"> 
+                    <img class="buttonimg" src="img/ic_image.png" alt="" width="20px" height="20px">
+                        <p class="menuitem">Screenshot</p>
+                </div>
+                </a>
+                <ul class="collapse collapse-parent list-unstyled" id="screenmenu">
+                    <li>
+                        <label class ="menu">
+                            <span class="menubutton downloadbutton">Save Screenshot</span>   
+                        </label>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+        
+        
+        <nav class="navbar" id="navbar">
+            <div class="container-fluid ">
+
+                <a class="navbar-brand" href="#">
+                    <img src="img/logo3.png" width = "50em" />
+                </a>
+
+                <button type="button" id="sidebarCollapse" class="btn">
+                    <i class="fas fa-bars"></i>
+                    <span></span>
+                </button>
+
+            </div>
+        </nav>
+
+        <!-- scene with protein-->
+        <div id="canvas"></div>
+        
+        <!-- atom info-->
+        <div id="snackbarT"></div>
+        <!-- ar and vr info-->
+        <div id="snackbarI"></div>        
+        
+        <!-- collapsed menu tooltip-->
+        <div class="tooltip">
+            <span class="tooltiptext"></span>
+        </div>
+        <!-- alert for pdb not parsed-->
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="pdbfail">
+          Error! <hr>
+            <p id="errmsg"></p>
+          <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- alert for pdb parsed-->
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="pdbsuccess">
+          PDB succesfully parsed. <hr> 
+            <p> Click on the protein to see information about atoms.</p>
+          <button type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- alert for error in non-cov bonds parsing-->
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="bondfail">
+          Error!<hr> <p id="failmsg"></p>
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+        <!-- alert for success in non-cov bonds parsing-->
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="bondsuccess">
+          Bonds successfully parsed!
+            <hr>
+            <p id="noncovcontent"></p> 
+              <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+        
+        <div class="alert alert-light alert-dismissible fade show" role="alert" id="armodal">
+          Place the protein in real word!
+            <hr><button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <p>Tap on the white ellipse to place the protein</p>
+              
+        </div>
+        
+        <!-- Modal for more info -->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" id="infomodal">
+          <div class="modal-dialog" id="infomodaldialog" role="document">
+            <div class="modal-content" id="infomodalcontent">
+              <div class="modal-header" id="infoheader">
+                <h5 class="modal-title" id="exampleModalLongTitle">Protein Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" id="infomodalbody">
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIN modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="rintitle" aria-hidden="true" id="rinmodal">
+            <div class="modal-dialog" id="rinmodaldialog" role="document">
+                <div class="modal-content" id="rinmodalcontent">
+                <div class="modal-header" id="rinheader">
+                    <h5 class="modal-title" id="rintitle">Residue Interaction Network</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="rinmodalbody">
+                  A Residue interaction network (RIN) represents three-dimensional structure of protein as a set of nodes (residues) and edges (non-covalent interactions). It is possible to display the RIN of this molecule in 2D or in 3D.
+                </div>
+                <div class="modal-footer" id="rinfooter">
+                    <button type="button" class="btn btn-light" id="2drinbutton">2D RIN</button>
+                    <button type="button" class="btn btn-light" id="3drinbutton">3D RIN</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Modal for non covalent bonds parameters  -->
+        <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="covid">
+          <div class="modal-dialog" role="document">
+              <form id="role-form"  method="get">
+                <div class="modal-content">
+                  <div class="modal-header" id="covheader">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Non covalent bonds parameters</h5>
+                    <button type="button" class="close" id="covclose" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="form-row">
+                        <p class="label">Bond Control</p>   
+                      </div>
+                      <div class="form-row">                     
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bond-control" id="bond-control-strict" checked>
+                                <label class="form-check-label" for="bond-control-strict">Strict</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bond-control" id="bond-control-weak">
+                                <label class="form-check-label" for="bond-control-weak">Weak</label>
+                            </div>
+                      </div>
+                      
+                      <div class="form-row">
+                        <p class="label">Interaction Type</p>   
+                      </div>
+                      <div class="form-row">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="interaction-type" id="interaction-type-all" checked>
+                                <label class="form-check-label" for="interaction-type-all">All</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="interaction-type" id="interaction-type-multiple">
+                                <label class="form-check-label" for="interaction-type-multiple">Multiple</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="interaction-type" id="interaction-type-one" >
+                                <label class="form-check-label" for="interaction-type-one">One</label>
+                            </div>
+                      </div>
+                      <div class="form-row">
+                        <p class="label">Network Policy</p>   
+                      </div>
+                      <div class="form-row">
+                          <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="net-policy" id="net-policy-closest" checked>
+                                <label class="form-check-label" for="net-policy-closest">Closest</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="net-policy" id="net-policy-ca" >
+                                <label class="form-check-label" for="net-policy-ca">Ca</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="net-policy" id="net-policy-cb" >
+                                <label class="form-check-label" for="net-policy-cb">Cb</label>
+                          </div>
+                      </div>
+                      <div class="form-row">                        
+                            <div class="form-group">
+                              <label for="pipistack-bond" class="label">π-π stacking</label>
+                              <input type="text" class="form-control" id="pipistack-bond" placeholder="6.5">
+                              <small class="form-text text-muted">Maximum distance for pipistack bonds</small>
+                            </div>
+                        </div>
+                      <div class="form-row">
+                            <div class="form-group">
+                              <label for="pication-bond" class="label">π-cation interaction</label>
+                              <input type="text" class="form-control" id="pication-bond" placeholder="5">
+                              <small class="form-text text-muted">Maximum distance for pication bonds</small>
+                            </div>
+                        </div>
+                      <div class="form-row">
+                            <div class="form-group">
+                              <label for="generic-bond" class="label">Generic bond</label>
+                              <input type="text" class="form-control" id="generic-bond" placeholder="6">
+                              <small class="form-text text-muted">Maximum distance for generic bonds</small>
+                            </div>
+                      </div>
+                      <div class="form-row">                        
+                            <div class="form-group">
+                              <label for="vdw-bond" class="label">Van Der Waals</label>
+                              <input type="text" class="form-control" id="vdw-bond" placeholder="0.5">
+                              <small class="form-text text-muted">Maximum distance for vdw bonds</small>
+                            </div>
+                    </div>
+                      <div class="form-row">
+                            <div class="form-group">
+                              <label for="h-bond" class="label">Hydrogen bond</label>
+                              <input type="text" class="form-control" id="h-bond" placeholder="3.5">
+                              <small class="form-text text-muted">maximum distance for h-bonds</small>
+                            </div>
+                        </div>
+                      <div class="form-row">
+                            <div class="form-group">
+                              <label for="ionic-bond" class="label">Ionic bond</label>
+                              <input type="text" class="form-control" id="ionic-bond" placeholder="4">
+                              <small class="form-text text-muted">Maximum distance for ionic bonds</small>
+                            </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group">
+                              <label for="seq-sep" class="label">Sequence Separation</label>
+                              <input type="text" class="form-control" id="seq-sep" placeholder="3">
+                        </div>
+                      </div>
+                      <div class="form-row">
+                         <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="force" id="force">
+                                <label class="form-check-label" for="force">Force</label>
+                                <small class="form-text text-muted">Force disable safety guards for distance arguments</small>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="covbutton" class="btn btn-danger">Save</button>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+                
+        <div id="mobilemenu" > <!-- MOBILE MENU. HIDDEN IN DESKTOP COMPUTER -->
+             
+            <!-- AR and VR buttons-->
+            <!--<div class="btn-group-vertical" id="arvrbuttons"> 
+                
+                <button type="button" class="btn btn-secondary mobilemenubtn btn-xs btn-block" id="desktopmobile" disabled >
+                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/ic_desktop_mac.png" alt=""></div>  <p> DESKTOP</p>
+                </button>
+                <button type="button" class="btn btn-secondary mobilemenubtn btn-xs btn-block" disabled>
+                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/cardboard.png" alt=""></div>  <p> FULL VR</p>
+                </button>
+          
+            </div>-->
+            
+            
+            <!-- hide button for mobile -->
+            <button class="btn visible" id="hidebutton">
+                <i class="fas fa-chevron-down fa-2x" id="hideicon" style="color: white"></i>
+            </button>
+            
+            <!-- menu for mobile devices -->
+            <div class="container" id="mobilebuttons">
+                <div class="row">
+                     <div class="col-sm-12 text-center">
+                        <div class="btn-group" role="group" >
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="searchmobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/ic_search.png" alt=""></div>  <p>SEARCH</p>
+                                </button>
+                                <div class="dropdown-menu mobile-dropdown">
+                                    <div id="mobilepdbbuttons">
+                                        <div class="input-group"  id="mobilepdbsearch">
+                                            <input class="form-control" id="mobilepdbname" >
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-light" id="mobilesearchpdbbutton">Search</button>
+                                            </span>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <form name="pdbupload" enctype="multipart/form-data" method="post">               
+                                            <input type="file" name="file" id="file" class="inputfile" />
+                                            <label for="file" class="labelfile">Upload</label>
+                                        </form>
+
+
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="structuremobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/structure.png" alt=""></div>  <p> STRUCTURE</p>
+                                </button>
+                                <div class="dropdown-menu mobile-dropdown" data-flip="false" data-boundary="window" data-display="static">
+                                    <label class ="menu menuitemmobile" style="display: flex">
+                                        <input type="checkbox" id="mobilecheck_atoms"  autocomplete="off">
+                                        <span class="menubutton">Sphere</span>
+                                        <!--<a href="#mobileopacitymenu" data-toggle="collapse" aria-expanded="false" id="mobileopacitylink" style="pointer-events: auto;cursor: pointer"><i class="fas fa-chevron-down" ></i></a>-->
+                                        <!--<button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="mobileopacitymenu" data-toggle="dropdown" data-target="opacitydrop" aria-haspopup="true" aria-expanded="false">    
+                                        </button>-->
+                                    </label>
+                                    <!--<ul class="collapse list-unstyled" id="mobileopacitymenu">
+                                        <li>
+                                            <label class="menu" style="display: flex">
+                                                <p id="opacityp">Opacity</p>
+                                                <div class="slider" style="display: flex">
+                                                    <input type="range" id="atomslider" min="0" max="1" step=".01" value="1" onchange="rangevalue1.value=value"/>
+                                                    <output class="rangevalue" id="rangevalue1">1</output>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </ul>-->
+                                    <!--<div class="dropdown-menu mobile-dropdown" data-flip="false" data-boundary="window" data-display="static" id="opacitydrop" aria-labelledby="mobileopacitymenu">
+                                        <label class="menu" style="display: flex">
+                                                <p id="opacityp">Opacity</p>
+                                                <div class="slider" style="display: flex">
+                                                    <input type="range" id="atomslider" min="0" max="1" step=".01" value="1" onchange="rangevalue1.value=value"/>
+                                                    <output class="rangevalue" id="rangevalue1">1</output>
+                                                </div>
+                                            </label>
+                                    </div>-->
+
+
+
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_rod"  autocomplete="off">
+                                        <span class="menubutton">Ball and Rod</span>
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_wireframe"  autocomplete="off">
+                                        <span class="menubutton">Wireframe</span>
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_sec"  autocomplete="off" checked>
+                                        <span class="menubutton">Sec. Structure</span>
+                                    </label>
+                                </div>       
+                            </div>
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="ligandmobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/ligand.png" alt=""></div>  <p> LIGANDS</p>
+                                </button>
+                                <div class="dropdown-menu mobile-dropdown" data-flip="false" data-boundary="window" data-display="static">
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_ligandsphere"  autocomplete="off">
+                                        <span class="menubutton">Sphere</span>
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_ligandrod"  autocomplete="off">
+                                        <span class="menubutton">Ball and Rod</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="watermobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/water.png" alt=""></div>  <p> WATER</p>
+                                </button>
+                                <div class="dropdown-menu mobile-dropdown" data-flip="false" data-boundary="window" data-display="static">
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_water"  autocomplete="off">
+                                        <span class="menubutton">Sphere</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            
+                         <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="surfacemobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div style='text-align:center;'> <i class="fas fa-splotch buttonimg fa-lg buttonimg"></i></div>  <p> SURFACE</p>
+                                </button>
+                                <div class="dropdown-menu mobile-dropdown" data-flip="false" data-boundary="window" data-display="static">
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobile_check_vdw_surface"  autocomplete="off">
+                                        <span class="menubutton">VDW</span>
+                                    </label>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobile_check_sas_surface"  autocomplete="off">
+                                        <span class="menubutton">SAS</span>
+                                    </label>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobile_check_ses_surface"  autocomplete="off">
+                                        <span class="menubutton">SES</span>
+                                    </label>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobile_check_ms_surface"  autocomplete="off">
+                                        <span class="menubutton">MS</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="colormobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/color.png" alt=""></div>  <p>COLOR</p>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right mobile-dropdown pre-scrollable" data-flip="false" data-boundary="window" data-display="static">
+
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton activeSpan" id="mobileelemspan">Element</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+
+
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton" id="mobileresspan">Residue</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton" id="mobilesecspan">Sec. Structure</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton" id="mobilechainspan">Chain</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton" id="mobilebfactorspan">B-Factor</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton" id="mobilehydrospan">Hydrofobicity</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton" id="mobilespectrumspan">Spectrum</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton" id="mobilechainspectspan">Chain spectrum</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton disabled" id="mobilenoncovbondsspan">Bonds</span>   
+                                    </label>  
+                                </div>
+                            </div>    
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="bondsmobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/bond.png" alt=""></div> <p> BONDS</p>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right mobile-dropdown pre-scrollable" data-flip="false" data-boundary="window" data-display="static">
+
+                                    <label class="menu menuitemmobile" id="mobilenoncovbonds">
+                                        <button type="button" class="btn btn-danger xmlbutton" >Parse bonds</button>
+                                    </label>
+                                    <!-- Aggiungi bottone per aprire la RIN da smartphone appena sarà disponibile -->
+                                    <div class="dropdown-divider"></div>                            
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_noncov_atoms" autocomplete="off" disabled >
+                                        <span class="menubutton">Show only atoms involved in bonds</span>   
+                                    </label>                            
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton diabled" id="mobilecheck_noncovdistancecolor">Color by distance</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton disabled" id="mobilecheck_noncovtypecolor">Color by type</span>   
+                                    </label>                            
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_hbond" autocomplete="off" disabled >
+                                        <span class="menubutton">Hydrogen bond</span>   
+                                    </label>                            
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_vdw" autocomplete="off" disabled>
+                                        <span class="menubutton">Van der Waals interactions</span>   
+                                    </label>     
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_sbond" autocomplete="off" disabled>
+                                        <span class="menubutton">Disulphide bridges</span>   
+                                    </label>     
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_ionic" autocomplete="off" disabled>
+                                        <span class="menubutton">Salt bridges</span>   
+                                    </label>     
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_pipistack" autocomplete="off" disabled>
+                                        <span class="menubutton">π-π stacking</span>   
+                                    </label>     
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_pication" autocomplete="off" disabled>
+                                        <span class="menubutton">π-cation</span>   
+                                    </label>     
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="mobilecheck_GENERIC" autocomplete="off" disabled>
+                                        <span class="menubutton">Inter-Atomic Contact</span>   
+                                    </label>  
+
+                                </div>
+                            </div>
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/ic_image.png" alt=""></div>  <p>SCREENSHOT</p>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right mobile-dropdown pre-scrollable" data-flip="false" data-boundary="window" data-display="static">
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton downloadbutton">Save Screenshot</span>   
+                                    </label>
+                                </div>   
+                            </div>
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn" id="infomobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     <div style='text-align:center;'> <img class="img-fluid buttonimg" src="img/ic_info.png" alt=""></div>  <p>INFO</p>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right mobile-dropdown pre-scrollable" data-flip="false" data-boundary="window" data-display="static">
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton" id="infomobilespan" >Protein Information</span>   
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <span class="menubutton openpdbbutton" >Open PDB</span>   
+                                    </label>
+                                </div>                    
+
+                            </div>
+
+                            <div class="btn-group dropup mobilediv">
+                                <button type="button" class="btn btn-secondary btn-xs mobilemenubtn arclass" id="arinlinemobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <div style='text-align:center;'>
+                                    <img class="img-fluid buttonimg" src="img/ic_desktop_mac.png" alt="">
+                                    </div> <p>VIZ. MODE</p>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right mobile-dropdown pre-scrollable" data-flip="false" data-boundary="window" data-display="static">
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="armobile"  autocomplete="off">
+                                        <span class="menubutton">Mobile AR</span>  
+                                    </label>
+                                    <div class="dropdown-divider"></div>
+                                    <label class ="menu menuitemmobile">
+                                        <input type="checkbox" id="vrmobile" autocomplete="off">
+                                        <span class="menubutton">Mobile VR</span>  
+                                    </label>
+                                </div> 
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>              
+        </div>
+    </div>
+    
+    
+    <!-- loader -->
+    <div id="loading">
+      <img id="loading-image" src="img/loader.gif" alt="Loading..." />
+        <p class="loading-p" id="loading-text"> Loading content...</p>
+    </div>
+  
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="src/libs/loadingoverlay.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="src/libs/jquery.mCustomScrollbar.concat.min.js"></script>
+<script module src="src/webxr-polyfill/iOSpolyfill/webxr-polyfill.js"></script>
+<script src="./src/libs/proteinSurface.js"></script>
+<script src="./src/libs/jquery.loading.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="module" src="src/Core.js"></script>
+<script type="module" src="src/Constants.js"></script>
+<script type="module" src="src/Rendering.js"></script>
+<script type="module" src="src/Functions.js"></script>
+

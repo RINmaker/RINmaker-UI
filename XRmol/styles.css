@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+}
+.graph {
+    width: 100%;
+    height: 50%;
+}
+
+#controls {
+    position: absolute;
+    top: 8px;
+    right: 0%;
+}
+
+#legend { 
+    position: absolute;  
+    top: 8px;
+    left: 8px; 
+}
+
+.bar-div { 
+    position: absolute;
+    width:33%; 
+    height:30%;
+}
+
+.doughnut-div {
+    position: absolute;
+    left: 35%;
+    width:30%; 
+}
+
+.h-div { 
+    position: absolute;
+    left: 65%;
+    width:33%;
+    height: 15%;
+}
+

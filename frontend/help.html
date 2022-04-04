@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>RINmaker</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style2.css">
+    
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar" class="">
+            <br>
+            <div class="container">
+                <img src="img/logo.png"/ class="img-fluid" alt="Responsive image">
+            </div>
+
+            <div class="container">
+                <p style="color: white" class="lead">Ca' Foscari University of Venice</p>
+                <p style="color: white" class="lead">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tag-fill" viewBox="0 0 16 16">
+                      <path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    </svg>
+                    <strong>v0.1.3</strong> 29/03/2021
+                </p>
+            </div>
+
+            <div class="container">
+                <div class="container">
+
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../RINmaker/index.php">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                                    <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+                                </svg>
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="../RINmaker/about.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                                </svg>
+                                About
+                            </a>
+                        </li>
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="../RINmaker/help.html">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+                                </svg>
+                                Help
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                
+            </div>
+
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+
+            <nav>
+                <button type="button" id="sidebarCollapse" class="navbar-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+            <br>
+            <main role="main" class="container w-75 p-3">
+                <br>
+                <div class="container">
+                    <div class="row ">
+                        <div class="col">
+                            <!-- Post content-->
+                            <article>
+                                <!-- Post header-->
+                                <header class="mb-4">
+                                    <!-- Post title-->
+                                    <h1 >
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-info" viewBox="0 0 16 16">
+                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                        </svg>
+                                        RINmaker
+                                    </h1>
+                                    <hr class="mb-5"/>
+                                
+                                </header>
+                                
+                                <!--content-->
+                                <section class="mb-5">
+
+                                    <p>On this page you will find information regarding the platform only. Technical features will be shown, such as errors, storage systems used and best practices to use the platform properly.</p>
+                                    <p>For information about RIN and the RINmaker project visit the <a href="../RINmaker/about.html">About</a> page.
+                                    </p>
+                                    <br>
+                                    <h2>Usage</h2>
+                                    <hr class="mb-5"/>
+                                    <p>On the <a href="../RINmaker/index.php">Home</a> page you can choose between loading a pdb or entering the id.</p>
+                                    <p>Once you have chosen the input method, go to the Options section where you can specify the parameters. The parameters must respect some constraints, which you will find in the next section.
+                                    </p>
+                                    <p>Once you have entered the parameters you can choose between the following three options:</p>
+                                    <ul>
+                                        <li><strong>Generate XML</strong>, the pdb file will be passed to RINmaker which will produce an xml file that can be downloaded and log information.</li>
+                                        <li><strong>Show 2D RIN</strong>, the pdb file will be passed to RINmaker which will produce a 2-dimensional graph representing all types of non-covalent interactions in the PDB.</li>
+                                        <li><strong>Show 3D RIN</strong>, the same as the previous point but a 3-dimensional graph will be produced.</li>
+                                    </ul>
+                                    <br>
+                                    <h2>Parameters</h2>
+                                    <hr class="mb-5"/>
+                                    <p>The type and default value of the parameters are shown below:</p>
+                                    <div class="container">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--seq-sep</strong></mark> <em>UINT=3</em></td>
+                                                    <td>sequence separation</td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--bond-control</strong></mark> <em>TEXT=strict</em></td>
+                                                    <td>strict or weak</td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--interaction-type</strong></mark> <em>TEXT=all</em></td>
+                                                    <td>all, multiple, one</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--net-policy</strong></mark> <em>TEXT=closest</em></td>
+                                                    <td>closest, Ca or Cb</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--h-bond</strong></mark> <em>FLOAT=3.5</em></td>
+                                                    <td>maximum distance for h bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--vdw-bond</strong></mark> <em>FLOAT=0.5</em></td>
+                                                    <td>maximum distance for vdw bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--ionic-bond</strong></mark> <em>FLOAT=4</em></td>
+                                                    <td>maximum distance for ionic bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--generic-bond</strong></mark> <em>FLOAT=6</em></td>
+                                                    <td>maximum distance for generic bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--pication-bond</strong></mark> <em>FLOAT=5</em></td>
+                                                    <td>maximum distance for pication bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--pipistack-bond</strong></mark> <em>FLOAT=6.5</em></td>
+                                                    <td>maximum distance for pipistack bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--h-bond-angle</strong></mark> <em>FLOAT=63</em></td>
+                                                    <td>angle for h bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--pication-angle</strong></mark> <em>FLOAT=45</em></td>
+                                                    <td>angle for pication bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--pipistack-normal-normal</strong></mark> <em>FLOAT=90</em></td>
+                                                    <td>angle range from normal to normal for pipistack bonds</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row"></th>
+                                                    <td><mark><strong>--pipistack-normal-centre</strong></mark> <em>FLOAT=90</em></td>
+                                                    <td>angle range from normal to centre for pipistack bonds</td>
+                                                </tr>
+                                            </tbody>
+                                        </table> 
+                                    </div>
+                                    <p>For more information visit the <a href="../RINmaker/about.html">About</a> page.</p>
+                                    <br>
+                                    <h2>Technical information</h2>
+                                    <hr class="mb-5"/>
+                                    <p>This platform has been tested on:</p>
+                                    <ul>
+                                        <li><strong>Google Chrome</strong> (Windows, OS X El Capitan) 90.0.4430.212 - <i>2021-05-10</i></li>
+                                        <li><strong>Opera</strong> (Windows) 76.0.4017.123 - <i>2021-05-14</i></li>
+                                        <li><strong>Firefox</strong> (Windows, Ubuntu 20.10) 88.0.1 - <i>2021-05-05</i></li>
+                                        <li><strong>Microsoft Edge</strong> (Windows) 90.0.818.62 - <i>2021-05-13</i></li>
+                                    </ul>
+                                    <p>The platform has also been tested on Safari, but does not work properly.</p>
+                                    <p>Cookies are used to pass information and parameters to RINmaker and between the various pages.</p>
+                                    <p>So, for proper operation, please check that your browser accepts cookies from this domain. In most cases this is not necessary, but this may be the solution if the "Bad Request" error occurs. Another solution could be to clear the browser’s cache and cookies and try again</p>
+                                    <p>Below an example in Chrome:</p>
+                                    <img src="img/cookie.png" class="img-fluid border">
+                                    <br><br>
+                                    <h2>Example</h2>
+                                    <hr class="mb-5"/>
+                                    <ul>
+                                        <li>
+                                            <p>An example of "Generate XML" with a pdb id:</p>
+                                            <p>Enter pdb id in the box, the pdb will be taken from an online repository and the content used later.</p>
+                                            <img src="img/pdbname.png" class="img-fluid border">
+                                            <br><br>
+                                            <p>After that, we choose the parameters to set. It is important to check the parameter you want to set.</p>
+                                            <img src="img/options.png" class="img-fluid border">
+                                            <br><br>
+                                            <p>Finally we click on the "Generate XML" button and wait for completion.</p>
+                                            <img src="img/buttonxml.png" class="img-fluid">
+                                            <img src="img/buttonloading.png" class="img-fluid ">
+                                            <br><br>
+                                            <p>Once completed we scroll down where we will see the log information and a button to download the XML file generated by RINmaker.</p>
+                                            <img src="img/xmlresult.png" class="img-fluid border">
+                                            <br><br>
+                                            <p>Click on "Download XML"</p>
+                                            <img src="img/downloadxml.png" class="img-fluid border">
+                                        </li>
+                                        <br>
+                                        <li>
+                                            <p>A 2D display example:</p>
+                                            <p>After entering the prameters that interest us, click on "Show 2D RIN".</p>
+                                            <img src="img/show2d.png" class="img-fluid border">
+                                            <br><br>
+                                            <p>Wait for completion.</p>
+                                            
+                                            <p>Once completed we will see the following screen:</p>
+                                            <img src="img/rin.png" class="img-fluid border">
+                                            <br><br>
+                                            <p>First the name of the pdb that we are viewing is displayed.</p>
+                                            <p>We can interact with the graph displayed using the mouse, acting directly on the graph, or through the bar between the graph and the logs.</p>
+                                            <p>To view the graph entirely, just click on the X at the top left.</p>
+
+                                            <img src="img/fulldisp.png" class="img-fluid border">
+                                            <br><br>
+                                            <p>To download the XML file of the displayed graph click on "Download XML" at the bottom of the sidebar.</p>
+                                            <img src="img/downloadxml2.png" class="img-fluid border">
+                                            <br><br>
+                                            <p>Scrolling down it is possible to observe some statistics relating to the graph.</p>
+                                            <img src="img/graphstat.png" class="img-fluid border">
+                                        </li>
+
+                                    </ul>
+                                    
+                                </section>
+                            </article>
+                        </div>
+                    </div> 
+                </div>
+            </main>
+        </div>
+    </div>
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+    <script src="//unpkg.com/element-resize-detector/dist/element-resize-detector.min.js"></script>
+    
+    <script type="text/javascript" src="js/functions.js"></script>
+    <script type="text/javascript" src="js/checkForm.js"></script>
+    <script type="text/javascript" src="js/browserDetection.js"></script>
+
+    <footer class="bg-light text-center text-lg-start">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1);">
+            © 2021 Ca' Foscari University of Venice
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1009 @@
+
+/*---------------------------------------------------
+POINTER LOCK CONTROLS INSTRUCTIONS
+----------------------------------------------------*/
+/*#blocker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+#instructions {
+    width: 100%;
+    height: 100%;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    box-orient: horizontal;
+
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    box-pack: center;
+
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+
+    color: #ffffff;
+    text-align: center;
+    font-family: Arial;
+    font-size: 14px;
+    line-height: 24px;
+
+    cursor: pointer;
+}
+
+
+
+*/
+
+
+
+#canvas{
+    overflow: hidden;
+   
+}
+
+/*------------------------------------------------
+TOOLTIP
+---------------------------------------------------*/
+
+/* Tooltip container */
+.tooltip {
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    color: white;
+    background-color: #555;
+    text-align: center;
+    border-radius: 2px;
+    vertical-align: middle;
+}
+
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%; /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #555 transparent transparent;
+}
+
+
+/*info button for vr and ar simulated mode*/
+#infovizmodeAR, #infovizmodeVR{
+    position: absolute;
+    color: white;
+    top: 35%;
+    left: 85%;
+}
+/*------------------------------------------------
+SCROLLBAR
+-------------------------------------------------*/
+.mobile-dropdown::-webkit-scrollbar,  #infomodalbody::-webkit-scrollbar {
+	-webkit-box-shadow: inset 0 0 6px rgba(255,0,0,0.3);
+	border-radius: 5px;
+	background-color: rgb(70, 70, 70);
+    width: 5px;
+}
+
+
+.mobile-dropdown::-webkit-scrollbar-track,  #infomodalbody::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.mobile-dropdown::-webkit-scrollbar-thumb, #infomodalbody::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: rgb(70, 70, 70);
+    padding: 1px;
+}
+
+
+/*hide navbar in mobile device and shows mobile menu*/
+@media screen and (min-width: 769px) {
+    
+    #mobilemenu { display: none; }
+    #sidebar { display: flex; }
+    #sidebarCollapse{ display: flex; }
+    #hidebutton{ display: none; }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    #mobilemenu { display: block; }
+    #sidebar { display: none; }
+    #sidebarCollapse { display: none; }
+
+    /*-----------------------------------------------
+    HIDE BUTTON
+    --------------------------------------------------*/
+    #hidebutton{
+        position: absolute;
+        bottom: 10em;
+        right: 1.5em; 
+        display: block; 
+    }
+
+    .hiddenbutton {
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s 0.5s, opacity 0.5s linear;
+    }
+
+    .visiblebutton {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.5s linear;
+    }
+}
+
+/*----------------------------------------------------------- 
+MOBILE MENU
+-------------------------------------------------------------*/
+
+#arinlinemobile{
+  border-radius: 0 6px 6px 0;  
+}
+
+#mobilenoncovbonds{
+    padding: 0.5em;
+}
+.btn-xs{
+    min-width: 10px;
+}
+
+#mobilemenu{
+   /* position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;*/
+}
+
+
+#arvrbuttons{
+    position: absolute; 
+    top: 5em;
+    left: 1em;
+}
+#mobilebuttons {
+    position: absolute;
+    bottom: 5em;
+    left: 1em;
+    right: 1em;
+    overflow-y: hidden;
+    overflow-x: auto!important;
+}
+
+
+#mobilebuttons > .mobilediv{
+    width: 100%;
+    height: 100%;
+}
+
+#armobile{
+    position: relative;
+    /*max-width: 10px;*/
+    /*left: 1em;*/
+}
+#vrmobile{
+    position: relative;
+    /*right: 1em;*/
+}
+
+#inlinemobile{
+    position: relative;
+    /*left: 50%;*/
+}
+
+.mobilemenubtn > div > img {
+    display: block;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    min-height: 10px;
+    min-width: 10px;    
+    transform: translate(-50%, -20%);
+    max-height: 50%;
+    max-width: 50%;
+}
+.mobilemenubtn > p {
+    position: absolute;
+    font-size: 0.5em;
+    color: white;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%)translateY(-80%);
+}
+
+.mobilemenubtn {
+    min-height: 4em;
+    min-width: 4em;
+    line-height: 1; 
+    background-color: rgba(57,62,70,0.2);
+    border-color: rgb(70, 70, 70);
+    border: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.mobilemenubtn:focus, .mobilemenubtn.focus {
+    background-color: rgb(41,161,156) !important;
+    box-shadow: none;
+    outline: none !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.mobilemenubtn:active, .mobilemenubtn.active {
+    background-color: rgb(41,161,156) !important;
+    outline: none !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+.mobilemenubtn:hover, .mobilemenubtn.hover,  {
+    background-color: rgba(57,62,70,0.2);
+}
+
+/*this avoid grey background when the button is active*/
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+   background-color: rgba(57,62,70,0.2); !important;
+    outline: none !important;
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important; 
+}
+
+
+.mobile-dropdown{
+    background-color: rgba(57,62,70,0.2);
+    border-color: rgb(70, 70, 70);
+    border: 1; 
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    max-height: 40%;
+    max-width: 4em;
+    position: absolute;
+}
+
+.dropdown-divider{
+    padding: 0;
+    margin: 0;
+    border-color: rgb(70, 70, 70)
+}
+
+
+
+/* ----------------------------------------------------------
+    SLIDER
+------------------------------------------------------------*/
+#atomslider{
+    margin: auto;
+}
+
+#opacitylink{
+    padding-left: 20 !important;
+    padding-right: 20 !important;
+    padding-top: 10 !important;
+    padding-bottom: 10 !important;
+    color: white;
+}
+
+#mobileopacitylink{
+    padding-left: 20 !important;
+    padding-right: 20 !important;
+    padding-top: 10 !important;
+    padding-bottom: 10 !important;
+    color: white;
+}
+
+#opacityp{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    padding-left: 30px;
+}
+
+.container {
+  display: flex;
+  /*width: 500px;
+  height: 500px;*/
+  margin: auto;
+  text-align: center;
+}
+
+
+input[type="range"] {
+  -webkit-appearance: none !important;
+  width: 100%;
+  height: 5px;
+  background-color: #A3CD99;
+  border-radius: 10px;
+  margin: auto;
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  background: #579E81;
+  box-shadow: 0px 0px 3px #3c6d59;
+  transition: all 0.5s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  background-color: #457d66;
+}
+input[type="range"]::-webkit-slider-thumb:active {
+  box-shadow: 0px 0px 1px #3c6d59;
+}
+
+.rangevalue {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  display: block;
+  margin: auto;
+  padding: 10px 0px;
+  width: 100%;
+  color: white;
+}
+
+/* ----------------------------------------------------------
+    TRANSPARENT TOAST 
+-------------------------------------------------------------*/
+#snackbarT {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    background-color: rgba(41,161,156,0.5);
+    min-width: 250px;
+    color: white;   
+    padding: 16px;
+    position: fixed;
+}
+
+#snackbarI {
+    display: none; /* Hidden by default. Visible on click */
+    background-color: rgba(41,161,156,0.5);
+    min-width: 250px;
+    padding: 16px;
+    color: white;   
+    padding: 16px;
+    position: fixed;
+}
+
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 6px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed;*/ /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 10%;
+    /*left: 15%;*/
+    /*bottom: 70%;*/ /* 60% from the bottom */ 
+  }
+  
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  #snackbarT.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s;
+    animation: fadein 0.5s;
+  }
+
+  #snackbarT.hide {
+    visibility: hidden; /* hide the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadeout 0.5s;
+    animation: fadeout 0.5s;
+  }
+  
+/*tolte per il momento*/
+  /* Animations to fade the snackbar in and out */
+  /*@-webkit-keyframes fadein {
+    from {top: 20%; opacity: 0;}
+    to {bottom: 70%; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+    from {top: 20%; opacity: 0;}
+    to {bottom: 70%; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+    from {bottom: 70%; opacity: 1;}
+    to {bottom: 20%; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 70%; opacity: 1;}
+    to {top: 20%; opacity: 0;}
+  }*/
+
+
+
+/* -------------------------------------------------------
+    ALERTS AND FORMS
+----------------------------------------------------------*/
+#Check_RIN:disabled, #Check_RIN[disabled]{
+    background-color: dimgrey;
+    pointer-events: none;
+}
+
+.xmlbutton, #rinbutton, #covbutton, #openpdbbutton, #openrinbutton {
+    border-radius: 0;
+    margin: 0.5em;
+}
+
+
+#infobutton{
+    position: absolute;
+    right: 2em;
+    top: 4em;
+}
+
+#downloadbutton{
+    position: absolute;
+    right: 2em;
+    top: 6em;
+}
+
+#infoheader, #rinheader{
+    background-color: rgb(115, 134, 213,0.8);
+    color: #fff; 
+}
+
+#infofooter, #rinfooter{
+    background-color: rgba(57,62,70,0.6);
+    color: #fff; 
+}
+#infomodalbody {
+    background-color: rgba(57,62,70,0.6);
+    color: #fff;  
+    overflow-y: auto;
+    height: 80vh;
+}
+#rinmodalbody{
+    background-color: rgba(57,62,70,0.6);
+    color: #fff;  
+}
+#rinmodal {
+    top: 30%;
+}
+
+#infomodalcontent, #rinmodalcontent{
+    background: transparent;
+}
+#infomodaldialog, #rinmodaldialog{
+    overflow-y: initial !important   
+}
+
+
+
+
+/*alerts*/
+#bondsuccess, #bondfail, #pdbfail, #pdbsuccess, #armodal {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    /*bottom: 5em;
+    left: 20em;
+    right: 20em;  */
+    text-align: center;
+}
+
+
+@media screen and (min-width: 769px) {
+    
+    #bondsuccess, #bondfail, #pdbfail, #pdbsuccess, #armodal {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        bottom: 5em;
+        left: 20em;
+        right: 10em;  
+    } 
+
+}
+
+@media screen and (max-width: 768px) {
+
+    #bondsuccess, #bondfail, #pdbfail, #pdbsuccess, #armodal {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        bottom: 5em;
+        left: 3em;
+        right: 3em;  
+    }
+
+}
+
+.modal {
+    text-align: center;
+}
+.modal:before {
+    display: inline-block;
+    /*vertical-align: middle;*/
+    content: " ";
+    /*height: 100%;*/
+}
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    /*vertical-align: middle;*/
+}
+
+.modal-dialog{
+    width:auto;
+}
+
+
+#searchpdbbutton, #mobilesearchpdbbutton {
+    border-radius: 0;
+}
+
+#pdbname, #mobilepdbname {  /*id of pdb for PDBBANK search*/
+    max-width: 70px;
+    border-radius: 0;
+}
+#pdbbuttons, #rinbuttons /*, #mobilepdbbuttons*/
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#pdbsearch, #mobilepdbsearch {
+    padding: 0.5em;
+}
+
+
+/* ----------------------------------------------------
+    LOADING IMAGE
+-------------------------------------------------------*/
+#loading {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    opacity: 0.7;
+    background-color: #fff;
+    display: none;
+    margin: 0;
+    top: 0;
+    left: 0;
+}
+
+#loading-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    transform: translateX(-50%)translateY(-60%);
+}
+
+.loading-p {
+    font-size: 13px;
+    position: relative;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%)translateY(-60%);
+}
+
+
+/* ---------------------------------------------------
+    NAVBAR AND SIDEBAR
+----------------------------------------------------- */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap');
+
+body {
+    font-family: "Poppins", sans-serif;
+   
+    
+}
+
+p {
+    font-size: 1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a,
+a:hover,
+a:focus,
+{
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+/*NAVIGATION BAR*/
+.navbar {
+    /*padding: 15px 10px;*/
+    background-color: #7386D5;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    min-height: 2.5em;
+    /*margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);*/    
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.navbar-brand {
+  transform: translateX(-50%);
+  left: 50%;
+  position: absolute;
+}
+
+/* ---------------------------------------------------
+    INPUT FILE
+----------------------------------------------------- */
+
+.labelfile {
+    padding: 0.5em;
+}
+
+.inputfile + label {
+    font-size: 1em;
+    color: #f1e5e6;
+    background-color: #d3394c;
+    display: inline-block;
+    cursor: pointer; /* "hand" cursor */
+    margin: 0.5em;
+}
+
+
+.inputfile:focus + label,
+.inputfile.has-focus + label,
+.inputfile + label:hover {
+    background-color: #722040;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+/*COLOR PALETTE*/
+
+/*
+black for three scene #
+grey fro sidebar content: #393e46 rgb(57,62,70)
+turquoise for navbar and pressed buttons: #29a19c rgb(41,161,156)
+acqua for hover button in sidebar: #a3f7bf rgb(163,247,191)
+
+*/
+
+#sidebar.closed{
+    max-width: 50px;
+    min-width: 50px;  
+}
+
+.components > li > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+/*div inside menu drawers*/
+.divmenu img, .divmenu p{
+    display: inline;
+}
+
+
+#sidebar {
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    /*left: -250px;*/
+    height: 100vh;
+    margin-top: 46px;
+    /*margin: 0;*/
+    z-index: 999;
+    background-color: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+    overflow-y: auto;
+    /*box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);*/
+}
+
+#sidebar.active {
+    left: 0;
+}
+
+#dismiss {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background: rgba(57,62,70,0.2);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#dismiss:hover {
+    background: rgb(163,247,191);
+    color: rgb(57,62,70);
+}
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: none;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li{
+    background-color: none;
+    margin: 1px;
+}
+
+#sidebar ul li a{
+    padding: 10px;
+    font-size: 1em;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+#sidebar ul li a:hover, #sidebar ul li a p:hover, #sidebar ul li a:hover p{
+    color: rgb(255, 255, 255);
+    background: rgb(63, 82, 158);
+}
+
+#sidebar ul li a p:hover{
+   color: rgb(255, 255, 255); 
+}
+
+#sidebar ul li.active>a ,
+a[aria-expanded="true"] {
+    color: #fff;
+    background:  rgba(57,62,70,0.2);
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a , .menubutton{
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: rgba(27, 29, 31, 0.2);
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+
+.menubutton {
+    border: none;
+    margin: 0;
+    text-align: left;
+    border-radius: 0;
+    padding: 10px;
+    display: block;
+    font-size: 0.9em !important;
+    width: 100%;
+    color: white;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+.menu {
+    width: 100%;
+    margin: 0;
+    position: relative;
+    min-width: 250px;
+}
+
+.menuitemmobile {
+    min-width: auto;
+}
+
+.menubutton:hover {
+    color: rgb(57,62,70);
+    background: #7386D5;
+    cursor: pointer;
+}
+input[type=checkbox]:disabled + .menubutton {
+    background-color: rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+
+input[type=checkbox]:checked + .menubutton {
+    background-color: rgb(41,161,156);
+}
+
+input[type=checkbox]:checked:hover + .menubutton {
+    color: rgb(57,62,70);
+    background: #72ac85;
+    cursor: pointer;
+}
+
+.menubutton:active {
+    background: rgb(41,161,156);
+    color: #fff;
+    cursor: pointer;
+}
+
+.menubutton.disabled { 
+    background-color: rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+
+input[type=checkbox]:checked:active + .menubutton {
+    
+    background: rgb(41,161,156);
+    color: #fff;
+    cursor: pointer;
+}
+
+.activeSpan {
+    pointer-events: none;
+    background: rgb(41,161,156);
+}
+/*target.style.pointerEvents = "none";//to disable span
+event.target.style.pointerEvents = "all";//to enable span*/
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+/*#content {
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+}*/
+/* ---------------------------------------------------
+  SIDEBAR COLLAPSE BUTTON
+----------------------------------------------------- */
+
+#sidebarCollapse {
+    background: #8996c9;
+    color: #fff;
+}
+
+#sidebarCollapse:hover {
+    background: #525a7a;
+    
+}
+#sidebarCollapse:active {
+    background: #869cf7;
+}
+
+/* -------------------------------------------------
+    SIDEBAR COLLAPSE ON SMALLER SCREEN
+----------------------------------------------------*/
+/*
+
+@media(max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #content {
+        width: 100%;
+    }
+    #content.active {
+        width: calc(100% - 250px);
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+*/
+
+
+/*--------------------------------------------------
+NON COV MODAL
+----------------------------------------------------*/
+#force{
+    display: block;
+}
+
+#covid .form-group{
+    width: 100%;
+}
+
+#covid .modal-dialog{
+    width: 80vw;
+}
+
+#covid .label{
+    color: #000000;
+    font-weight: bold;
+}
+
+/*-----------------------------------------------------
+SURFACE CHECKBOX
+-------------------------------------------------------*/
+.custom-control-input > input[type=checkbox]{
+    display: block;
+}
+
+.custom-control{
+    position: relative;
+    display: block;
+    /*left: 4em;*/
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: rgb(41,161,156) !important;
+    background-color: rgb(41,161,156) !important;
+}
