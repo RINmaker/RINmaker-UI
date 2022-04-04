@@ -9,25 +9,25 @@ let DegreeGradient = {
     0.7 : "#b76800",
     0.8 : "#bf5400",
     0.9 : "#c33d0a",
-    1.0 : "#c32222"   
+    1.0 : "#c32222"
 }
 
 function paint_by_residue(residue){
-    
-    if (residue == "ARG" || residue == "LYS"){
+
+    if (residue === "ARG" || residue === "LYS"){
         return "#0000ff"
     }
-    if (residue == "ASN" || residue == "GLN" || residue == "HIS"){
+    if (residue === "ASN" || residue === "GLN" || residue === "HIS"){
         return "#ff00ff"
     }
-    if (residue == "CYS" || residue == "ILE" || residue == "LEU" || residue == "MET" || residue == "PHE" || residue == "PRO" || residue == "TRP" ||
-        residue == "TYR" || residue == "VAL"){
+    if (residue === "CYS" || residue === "ILE" || residue === "LEU" || residue === "MET" || residue === "PHE" || residue === "PRO" || residue === "TRP" ||
+        residue === "TYR" || residue === "VAL"){
         return "#008000"
     }
-    if (residue == "ALA" || residue == "GLY" || residue == "SER" || residue == "THR"){
+    if (residue === "ALA" || residue === "GLY" || residue === "SER" || residue === "THR"){
         return "#ffa500"
     }
-    if (residue == "ASP" || residue == "GLU" ){
+    if (residue === "ASP" || residue === "GLU" ){
         return "#ff0000"
     }
     else{
@@ -38,25 +38,25 @@ function paint_by_residue(residue){
 
 function paint_by_chain(chain){
     console.log(chain);
-    if (chain == "A"){
+    if (chain === "A"){
         return "#1f77b4"
     }
-    if (chain == "B"){
+    if (chain === "B"){
         return "#ff7f0e"
     }
-    if (chain == "C"){
+    if (chain === "C"){
         return "#2ca02c"
     }
-    if (chain == "D"){
+    if (chain === "D"){
         return "#d62728"
     }
-    if (chain == "E"){
+    if (chain === "E"){
         return "#b594cd"
     }
-    if (chain == "F"){
+    if (chain === "F"){
         return "#8c564b"
     }
-    if (chain == "G"){
+    if (chain === "G"){
         return "#e377c2"
     }
     else{
@@ -67,8 +67,8 @@ function paint_by_chain(chain){
 
 const roundAccurately = (number, decimalPlaces) => Number(Math.round(number + "e" + decimalPlaces) + "e-" + decimalPlaces);
 function paint_by_degree(degree){
-    var normalize = degree/30;
-    return DegreeGradient[roundAccurately(normalize,1)] 
+    let normalize = degree/30;
+    return DegreeGradient[roundAccurately(normalize,1)]
 }
 
 function paint_by_polarity(residue){

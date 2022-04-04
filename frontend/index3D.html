@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    
+
 </head>
 
 <body>
@@ -59,7 +59,7 @@
 
                 <hr>
 
-                <div id="alertPerf" class="row">
+                <div class="row">
                     <div id="alertPerf" class="col-sm">
                     </div>
                 </div>
@@ -68,7 +68,7 @@
 
                 <div class="row">
                     <div class="col-sm">
-                        
+
                         <a id="gravity">Gravity:</a>
                         <div class="rangeslider" >
                             <input type="range" min="-150" max="50" step="2" value="0" id="sliderGravity">
@@ -89,23 +89,23 @@
                     </div>
                 </div>
 
-            
+
 
                 <hr>
 
                 <div id="wait2" class="text-center">
-                    <img src="img/waiting2.gif" width="70" height="70"/>
+                    <img src="img/waiting2.gif" width="70" height="70" alt="loading"/>
                 </div>
 
                 <div class="col-sm">
                     <div class="row">
                         <div id="svglink" class="col-sm">
-                    
+
                         </div>
                     </div>
                     <div class="row">
                         <div id="svg" class="col-sm">
-                    
+
                         </div>
                     </div>
                 </div>
@@ -163,11 +163,11 @@
                                 </svg>
                                 2D Visualization
                             </button>
-                            
+
                         </div>
                     </div>
                 </div>
-      
+
             </div>
 
         </nav>
@@ -181,7 +181,7 @@
                     <span></span>
                     <span></span>
                 </button>
-                    
+
             </nav>
             <br>
 
@@ -189,12 +189,12 @@
 
             <div id="wait" class="text-center">
                 <h5 id="avviso">Attention! Large files may take longer to render</h5>
-                <img src="img/waiting.gif" width="130" height="130"/>
+                <img src="img/waiting.gif" width="130" height="130" alt="loading"/>
             </div>
 
-            
+
             <div id="graph" class="d-flex justify-content-center border"></div>
-            
+
 
         </div>
     </div>
@@ -203,13 +203,13 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Statistics</h5>
+                    <h5 class="modal-title">Statistics</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                
+
                     <div class="container">
                         <button id="downloadPdf" class="btn btn-primary" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
@@ -218,7 +218,7 @@
                             </svg>
                             Download PDF
                         </button>
-                        
+
                         <br><br>
                         <div class="row">
                             <div id="numberNode"></div>
@@ -226,19 +226,19 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                
+
                                 <div class="chart-container">
                                     <canvas id="bar-chart"></canvas>
                                 </div>
                             </div>
                             <div class="col">
-                    
+
                                 <div class="chart-container">
                                     <canvas id="doughnut-chart" ></canvas>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col">
                                 <hr>
@@ -246,7 +246,7 @@
                                     <canvas id="h1-chart"></canvas>
                                 </div>
                             </div>
-                            
+
                             <div class="col">
                                 <hr>
                                 <div class="chart-container">
@@ -265,17 +265,17 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Parameters</h5>
+                    <h5 class="modal-title">Parameters</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    
+
                     <div id="displayParams"></div>
 
                 </div>
-            
+
             </div>
         </div>
     </div>
@@ -304,11 +304,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
-    <script src="//unpkg.com/element-resize-detector/dist/element-resize-detector.min.js"></script>
+    <script src="https://unpkg.com/element-resize-detector/dist/element-resize-detector.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r124/three.min.js"></script>
     <script src="https://unpkg.com/force-graph"></script>
     <script src="https://unpkg.com/3d-force-graph"></script>
-    <script src="https://unpkg.com/d3-force-3d"></script>   
+    <script src="https://unpkg.com/d3-force-3d"></script>
     <script type="text/javascript" src="js/functions.js"></script>
     <script type="module" src="js/3DRIN.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
