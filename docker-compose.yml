@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  be:
+    restart: always
+    network_mode: host
+    build:
+      context: ./backend
+      network: host
+    logging:
+      driver: json-file
+      options:
+        max-file: "10"
+        max-size: "5m"
+    ports:
+      - "8001:8001"
+
+  fe:
+    restart: always
+    network_mode: host
+    build:
+      context: ./frontend
+      network: host
+    logging:
+      driver: json-file
+      options:
+        max-file: "10"
+        max-size: "5m"
+    ports:
+      - "8000:8000"

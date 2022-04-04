@@ -8,6 +8,7 @@ import { XRControllers } from './XRControllers.js';
 import { parseXmlBonds, parsePDB } from './Parsing.js';
 import { BoxLineGeometry } from './libs/BoxLineGeometry.js';
 import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.module.min.js';
+import {ENDPOINT} from "../../env";
 
 ////////////////////////////////////////////////////////////////////////
 //GLOBAL VARIBALES
@@ -2167,9 +2168,9 @@ $(document).ready(function () {
                             scene.children[0].children.forEach((child) => {
                                 if (child.name == 'COVAR') {
                                     child.visible = false;
-                                    /*if ( child.parent.parent.parent == Scene ){// se si trova nel pivot lo tolgo                         
+                                    /*if ( child.parent.parent.parent == Scene ){// se si trova nel pivot lo tolgo
                                         let parent = child.userData.originalParent;
-                                        parent.add( child ); 
+                                        parent.add( child );
                                     }*/
                                 } else if (child.name == 'AR') {
                                     child.visible = true;
@@ -2623,8 +2624,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: 'POST',
-                //url: "https://coccode.dsi.unive.it:8002/requestxml",
-                url: 'https://192.168.1.157:8002/requestxml', //for local tests
+                url: ENDPOINT + '/requestxml',
                 //url: "http://ring.dais.unive.it:8002/api/ispresent/pdbname",
                 data: {
                     name: pdbname,
@@ -2766,7 +2766,7 @@ $(document).ready(function () {
     /* const loader = new THREE.TextureLoader();
      loader.load('./../media/img/violetb.jpg' , function(texture)
              {
-              Scene.background = texture;  
+              Scene.background = texture;
              });*/
 
     Scene.add(light);
@@ -3173,7 +3173,7 @@ $(document).ready(function () {
             targetRotationX = targetRotationOnMouseDownX + ( mouseX - mouseXOnMouseDown ) * 0.01;//originally 0.05
 
             mouseY = event.touches[ 0 ].pageY - windowHalfY;
-            targetRotationY = targetRotationOnMouseDownY + (mouseY - mouseYOnMouseDown) * 0.01; //originally 0.05   
+            targetRotationY = targetRotationOnMouseDownY + (mouseY - mouseYOnMouseDown) * 0.01; //originally 0.05
             */
             //rotatePivot();
         }

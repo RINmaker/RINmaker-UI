@@ -44,4 +44,4 @@ else {
 	server = http.createServer(app);
 }
 
-server.listen(process.env.PORT || 8000, '0.0.0.0')
+server.listen(process.env.PORT || 8001, '0.0.0.0')

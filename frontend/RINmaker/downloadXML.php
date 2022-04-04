@@ -84,11 +84,13 @@ if($status['error']){
 	return;
 }
 
-$urlFromName = 'https://ring.dais.unive.it:8002/api/requestxml/fromname';
-$urlFromContent = 'https://ring.dais.unive.it:8002/api/requestxml/fromcontent';
+$ENDPOINT = 'https://ring.dais.unive.it:8002';
+
+$urlFromName = $ENDPOINT + '/api/requestxml/fromname';
+$urlFromContent = $ENDPOINT + '/api/requestxml/fromcontent';
 
 if($requestFlag === 1){
-	
+
 	$fields_string = http_build_query($params);
 
 	$ch = curl_init();
@@ -97,7 +99,7 @@ if($requestFlag === 1){
 	curl_setopt($ch,CURLOPT_POST, true);
 	curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
 
-	curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 
 	$result = curl_exec($ch);
 	$getResponse = json_decode($result);
@@ -126,7 +128,7 @@ if($requestFlag === 1){
 			return;
 		}
 	}
-	
+
 }else if($requestFlag === 0){
 
 	$fields_string = http_build_query($params);
@@ -137,7 +139,7 @@ if($requestFlag === 1){
 	curl_setopt($ch,CURLOPT_POST, true);
 	curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
 
-	curl_setopt($ch,CURLOPT_RETURNTRANSFER, true); 
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
 
 	$result = curl_exec($ch);
 
