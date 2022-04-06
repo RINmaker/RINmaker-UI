@@ -10,8 +10,12 @@ export var bond_count = new Array(7) //idem per i legami
 export var avg_e_bond = new Array(7)
 export var avg_dist_bond = new Array(7)
 export var map = {}
+export var hbond_ext_count = new Array(4); // [0]=MC_MC [1]=SC_SC [2]=MC_SC [3]=SC_MC
 
 //Init array to 0
+for(let i = 0; i < hbond_ext_count.length; i++){
+    hbond_ext_count[i] = 0
+}
 for (let i = 0; i < res_count.length; i++){
     res_count[i] = 0;
 }
@@ -20,6 +24,7 @@ for (let i = 0; i < bond_count.length; i++){
     avg_e_bond[i] = 0;
     avg_dist_bond[i] = 0;
 }
+
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -100,7 +105,7 @@ for (let i = 0; i < bond_count.length; i++){
                     //8-11 start residue
                     //12-15 end residue
                     //16-19 start residue
-                    //20-23 end residue
+                    //20-23 end reidue
                     //24-27 start residue
                     //28-31 end residue
                     //32-35 first ligand
@@ -676,6 +681,18 @@ export function parseXmlBonds( text ){
                 // subtypenode_subtypenode, where subtype = main chain (MC), side chain (SC) and ligand (LIG).
                     intType = interaction.substring(0,index);
 
+                    if(intType == 'HBOND'){
+                        if(intExt == 'MC_MC'){
+                            hbond_ext_count[0]++;
+                        } else if(intExt  == 'SC_SC'){
+                            hbond_ext_count[1]++;
+                        } else if(intExt  == 'MC_SC'){
+                            hbond_ext_count[2]++;
+                        } else if(intExt  == 'SC_MC'){
+                            hbond_ext_count[3]++;
+                        }
+                    }
+                    
                 if ( !intType || !interaction || !intExt ){
                     console.log("found!");
                 }
@@ -877,6 +894,17 @@ export function parseXmlBonds( text ){
                 serial++;
 
             }
+
+            var total = 0;
+            for(let i=0; i<hbond_ext_count.length; i++){
+                total += hbond_ext_count[i];
+            }
+
+            for(let i=0; i<hbond_ext_count.length; i++){
+                hbond_ext_count[i] = ((100 * hbond_ext_count[i]) / total).toFixed(2);
+            }
+            
+
 
             const roundAccurately = (number, decimalPlaces) => Number(Math.round(number + "e" + decimalPlaces) + "e-" + decimalPlaces)
             for (var i = 0; i < (bond_count.length); ++i){

@@ -1,11 +1,38 @@
-import { res_count, bond_count,avg_e_bond,avg_dist_bond} from "./Parsing.js";
+import { res_count, bond_count, avg_e_bond, avg_dist_bond, hbond_ext_count} from "./Parsing.js";
 
 var res_list = ["ARG","LYS","ASN","GLN","HIS","CYS","ILE","LEU","MET","PHE","PRO","TRP","TYR","VAL","ALA","GLY","SER","THR","ASP","GLU"];
 var res_cols = ["#0000ff","#0000ff","#ff00ff","#ff00ff","#ff00ff","#008000","#008000","#008000","#008000","#008000","#008000","#008000","#008000","#008000","#ffa500","#ffa500","#ffa500","#ffa500","#ff0000","#ff0000"];
 var bond_list = ['IONIC','HBOND',"VDW","SSBOND","PIPISTACK","PICATION","IAC"];
 var bond_cols = ["#0000ff","#87cefa","#ffd700","#9C31F9","#ff0000","#9acd32","#dcdcdc"];
+var ext = ["main-chain main-chain", "side-chain side-chain", "main-chain side-chain", "side-chain main-chain"];
 
 
+
+var ctx0 = document.getElementById("pie-chart");
+
+console.log(hbond_ext_count);
+
+var myChart0 = new Chart(ctx0, {
+    type: 'pie',
+    data: {
+        labels: ext,
+        datasets: [
+            {
+                label: "Total in %",
+                backgroundColor: ["#FF5733", "#FFE633", "#33A8FF", "#87FC53"],
+                data: hbond_ext_count
+            }
+        ]
+    },
+    options: {
+    title: {
+        display: true,
+        text: 'Hydrogen bonds per type (in %)'
+    },
+    responsive: true,
+    maintainAspectRatio: true
+    }
+});
 
 // Bar chart
 var ctx = document.getElementById("bar-chart");
@@ -125,4 +152,4 @@ var myChart4 = new Chart(ctx4, {
 });
 /*setTimeout(function() { myChart4.update(); },3000);*/
 
-export {myChart, myChart2, myChart3, myChart4};
+export {myChart0, myChart, myChart2, myChart3, myChart4};
