@@ -1,6 +1,6 @@
 import {nodesRIN, linksRIN ,parseXmlBonds, hbond_ext_count} from "./Parsing.js";
 import {myChart0, myChart, myChart2, myChart3, myChart4} from "./chart.js";
-import {ENDPOINT} from "../env";
+import {ENDPOINT} from "../../env.js";
 
 var params = JSON.parse(getCookie('params2D'));
 const regexpPDB = /^[\w\-_\s]+.pdb$/;

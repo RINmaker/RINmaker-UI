@@ -26,5 +26,7 @@ services:
       options:
         max-file: "10"
         max-size: "5m"
+    environment:
+      - PORT=8000
     ports:
       - "8000:8000"

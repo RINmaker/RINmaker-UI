@@ -1,6 +1,6 @@
 FROM php:7-apache
 
-COPY 000-apache.conf /etc/apache2/sites-available/000-apache.conf
+COPY 000-apache.conf /etc/apache2/sites-enabled/000-apache.conf
 COPY start-apache /usr/local/bin
 RUN a2enmod rewrite
 

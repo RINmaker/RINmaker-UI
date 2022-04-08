@@ -1,2 +1,2 @@
 
-export const ENDPOINT = 'https://ring.dais.unive.it:8002';
+export const ENDPOINT = 'http://127.0.0.1:8001';
