@@ -13,7 +13,7 @@ let DegreeGradient = {
 }
 
 function paint_by_residue(residue){
-
+    
     if (residue === "ARG" || residue === "LYS"){
         return "#0000ff"
     }
@@ -68,7 +68,7 @@ function paint_by_chain(chain){
 const roundAccurately = (number, decimalPlaces) => Number(Math.round(number + "e" + decimalPlaces) + "e-" + decimalPlaces);
 function paint_by_degree(degree){
     let normalize = degree/30;
-    return DegreeGradient[roundAccurately(normalize,1)]
+    return DegreeGradient[roundAccurately(normalize,1)] 
 }
 
 function paint_by_polarity(residue){

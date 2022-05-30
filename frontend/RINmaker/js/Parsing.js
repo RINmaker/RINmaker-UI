@@ -12,19 +12,17 @@ export var avg_dist_bond = new Array(7)
 export var map = {}
 export var hbond_ext_count = new Array(4); // [0]=MC_MC [1]=SC_SC [2]=MC_SC [3]=SC_MC
 
-//Init array to 0
-for(let i = 0; i < hbond_ext_count.length; i++){
-    hbond_ext_count[i] = 0
+for(var index=0; index < hbond_ext_count.length; index++){ //inizzializzo l'array a 0
+    hbond_ext_count[index] = 0
 }
-for (let i = 0; i < res_count.length; i++){
-    res_count[i] = 0;
+for (var index = 0; index < (res_count.length); index++){ //forzo l'inizializzazione a 0 poichè altrimenti js fa quello che vuole
+    res_count[index] = 0;
 }
-for (let i = 0; i < bond_count.length; i++){
-    bond_count[i] = 0;
-    avg_e_bond[i] = 0;
-    avg_dist_bond[i] = 0;
+for (var index = 0; index < (bond_count.length); index++){ 
+    bond_count[index] = 0;
+    avg_e_bond[index] = 0;
+    avg_dist_bond[index] = 0;
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -32,34 +30,34 @@ for (let i = 0; i < bond_count.length; i++){
 ///////////////////////////////////////////////////////////////////////
 
 /*export function parsePDB( pdb, proteinName ){
-
+    
     let pdbmodel = null, pdbconnect = null, lines = null, resolution = "";
     let updated = false; //PDB has HEADER info?
     let isInOrder = true; //PDB atoms are ordered by chainId?
-
+    
     //multi-model protein: must read only first model coordinates and CONECT fields
-    if ( pdb.indexOf("NUMMDL") != -1 ){
+    if ( pdb.indexOf("NUMMDL") != -1 ){ 
         let endLineIndex = pdb.indexOf("ENDMDL");
         pdbmodel = pdb.slice(0, endLineIndex );
         console.log( "Multi-model protein: first model are considered" );
         pdbconnect = pdb.slice( pdb.indexOf("CONECT"), pdb.length ); //connect lines after end of model
         pdb = pdbmodel.concat(pdbconnect);
     }
-
+    
     var occur2 =  Number.MAX_SAFE_INTEGER, chainIdPrec, lastRes;
     var i=0, ter=0, loopIndex = 0, loop = true;
-
+    
     setMinY(1000); 	setMaxY(-1000);
     setMinX(1000); 	setMaxX(-1000);
     setMinZ(1000); 	setMaxZ(-1000);
-
+    
     // Reading line by line
     try{
         let size = pdb.length /81; //number of pdb lines
         var chunks = chunkSubstr( pdb, 16000*81 ); //size deve essere un multplo del numero di colonne del pdb, size % 81 == 0 (80+\n)
         for ( let chunk in chunks ){
             lines = chunks[chunk].split(/\r\n|\n/);
-
+                
             lines.forEach((line) => {
                 let endLineIndex = null;
                 let type = line.slice(0,6).trim(); //the first 6 char determine the record type
@@ -74,7 +72,7 @@ for (let i = 0; i < bond_count.length; i++){
                                 resolution  = line.slice(23,30).trim()+" Å";
                         }
                         break;
-                    case "JRNL":
+                    case "JRNL": 
                         readAtomInfo(line);
                         break;
                     case "HELIX":
@@ -89,14 +87,14 @@ for (let i = 0; i < bond_count.length; i++){
                     case "TER":
                         //legge il serial di TER e iserisci TER a quella posizione
                         let serial = line.slice(7,11);
-                        Atomi[serial] = "TER";
-                        ter++;
-                        Backbone.push("TER");
+                        Atomi[serial] = "TER";		
+                        ter++;		
+                        Backbone.push("TER");	
                         indexArray.push("TER");
                         break;
                     case "HETATM":
                         readHetatm(line);
-                        break;
+                        break;  
                     case "CONECT":
                         readConect(line);
                         break;
@@ -114,12 +112,12 @@ for (let i = 0; i < bond_count.length; i++){
                         //readSite(line);
                         break;
                 }
-            });
+            });       
         }
-
+    
         function readAtomInfo( line ){
 
-            let type = line.slice(12,18).trim();
+            let type = line.slice(12,18).trim(); 
             if ( type == "TITL" ) {
                 let atominfo = line.slice(19, 79).trim();
                 let text = proteinName.toUpperCase() + ": " + atominfo;
@@ -132,9 +130,9 @@ for (let i = 0; i < bond_count.length; i++){
         function readHelices( line ){
 
             //per usare il pdb 7aai e 7aae cambiare startchainid in 19-20 e endChainID in 31-32
-            let startChainId = line.slice(19, 20).trim();
+            let startChainId = line.slice(19, 20).trim();				
             let start = parseInt(line.slice(20, 25));
-            let endChainId = line.slice(31, 32).trim();
+            let endChainId = line.slice(31, 32).trim();	
             let end = parseInt(line.slice(32, 37));
 
             Helix.push({ startChainId : startChainId , start : start
@@ -143,33 +141,33 @@ for (let i = 0; i < bond_count.length; i++){
         }
         function readSheets( line ){
 
-            let startChainId = line.slice(21, 22);
+            let startChainId = line.slice(21, 22);					
             let start = parseInt(line.slice(22, 26));
-            let endChainId = line.slice(32, 33);
+            let endChainId = line.slice(32, 33);  			
             let end = parseInt(line.slice(33, 37));
 
             Sheet.push({ startChainId : startChainId , start : start
-                        , endChainId : endChainId , end : end});
+                        , endChainId : endChainId , end : end});			
         }
         function readAtoms( line ){
 
             let serial = parseInt(line.slice(6,11).trim());
-
-            let name = line.slice(11, 16).trim();
+            
+            let name = line.slice(11, 16).trim(); 
             let resName = line.slice(17, 20).trim();
             let chainId = line.slice(21, 22);
             let resSeq = parseInt(line.slice(22,26));
-            let pos = new THREE.Vector3(parseFloat(line.slice(31, 38)),  			//cordinate
+            let pos = new THREE.Vector3(parseFloat(line.slice(31, 38)),  			//cordinate 
                                             parseFloat(line.slice(38, 46)),
-                                            parseFloat(line.slice(46, 54)));
+                                            parseFloat(line.slice(46, 54)));				
             let BFactor = parseFloat(line.slice(61,66));;
             let elem = line.slice(77, 78).trim().toUpperCase();
-
+            
             if ( serial && name && resName && chainId && resSeq && pos.x && pos.y && pos.z ){ //PDBS with only atoms and position does not have bfactor and elem
 
                 //controllo che gli atomi sia ordinati in modo lessicografico in base al campo chainID
             if(chainIdPrec > chainId && disegnaRibbon){
-                let string = 'Atoms are not in lexicographic order' +
+                let string = 'Atoms are not in lexicographic order' + 
                     ' secondary structure will not be fully displayed ';
 
                     $("#pdbsuccesp").append("<br>Warning: "+string);
@@ -182,7 +180,7 @@ for (let i = 0; i < bond_count.length; i++){
 
                 //variables for setting zoom and for calculates bonds
                 (minY > pos.y)? setMinY(pos.y) : setMinY(minY);
-                (maxY < pos.y)? setMaxY(pos.y) : setMaxY(maxY);
+                (maxY < pos.y)? setMaxY(pos.y) : setMaxY(maxY); 
                 (minX > pos.x)? setMinX(pos.x) : setMinX(minX); (maxX < pos.x)? setMaxX(pos.x) : setMaxX(maxX);
                 (minZ > pos.z)? setMinZ(pos.z) : setMinZ(minZ); (maxZ < pos.z)? setMaxZ(pos.z) : setMaxZ(maxZ);
 
@@ -190,25 +188,25 @@ for (let i = 0; i < bond_count.length; i++){
 
                 let atomo = {pos : pos, name : name,
                      resName : resName, chainId : chainId, resSeq : resSeq,
-                    serial : serial, nonCovBonds : [],
+                    serial : serial, nonCovBonds : [], 
                     //kdtreepos : {x : pos.x, y : pos.y, z : pos.z}
-                };
-
+                };		
+            
                 if ( elem ) {
                     atomo.elem = elem;
                     atomo.color = COLOR.color[elem];
                 }
                 else{
                     if (COLOR.color[name.slice(0,1)]) {
-                        atomo.elem = name.slice(0,1);
+                        atomo.elem = name.slice(0,1); 
                         atomo.color = COLOR.color[name.slice(0,1)];
                     } else {
-                        atomo.elem = name.slice(0,2);
+                        atomo.elem = name.slice(0,2); 
                         atomo.color = COLOR.color[name.slice(0,2)];
-                    }
-                }
+                    }     
+                } 
                 if ( BFactor ) atomo.bFactor = BFactor;
-
+                
                 Atomi[serial] = atomo;
                 if ( !residueSequence[chainId] ) residueSequence[chainId] = [];
                 if ( lastRes != resName ){
@@ -248,12 +246,12 @@ for (let i = 0; i < bond_count.length; i++){
                 } else {    //protein
                     //vengono memorizzati tutti gli atomi con nome 'C'
                     //che compongono la backbone della proteina
-                    if(name == "C") {
+                    if(name == "C") { 
                         Backbone.push( atomo );
                         //questo è inutile
                         // if ( !OrderedBackbone[chainId] )
                         //     OrderedBackbone[chainId] = [];
-                        // OrderedBackbone[chainId].push( atomo );
+                        // OrderedBackbone[chainId].push( atomo );  
                     }
 
                     //inserts atoms into secondary structures arrays
@@ -293,7 +291,7 @@ for (let i = 0; i < bond_count.length; i++){
 
                     //             found = true;
                     //             loop = false;
-                    //         }
+                    //         } 
                     //     }
                     //     h++;
                     // }
@@ -310,37 +308,37 @@ for (let i = 0; i < bond_count.length; i++){
                     //     }
                     //     Loop[loopIndex].atoms.push(atomo);
                     //     Loop[loopIndex].positions.push(pos);
-                    //     Loop[loopIndex].colors.push(atomo.color);
+                    //     Loop[loopIndex].colors.push(atomo.color); 
                     //     loop = true;
                     // }
 
-                    //vengono memorizzati tutti gli atomi con nome 'O'
+                    //vengono memorizzati tutti gli atomi con nome 'O' 
                     // questo è necessario per disegnare le beta sheet.
                     if(name == "O")  Oxigen[chainId.toString() + resSeq.toString() ] = pos;
-                }
+                }   
             } else {
                 console.log("problem at line: "+serial);
-            }
+            } 
         }
         function readHetatm( line ){
 
             let serial = parseInt(line.slice(6,11).trim());
-            let name = line.slice(11, 16).trim();
+            let name = line.slice(11, 16).trim(); 
             let resName = line.slice(17, 20).trim();
             let chainId = line.slice(21, 22);
             let resSeq = parseInt(line.slice(23,26));
-            let pos = new THREE.Vector3(parseFloat(line.slice(31, 38)),
+            let pos = new THREE.Vector3(parseFloat(line.slice(31, 38)),  		
                                         parseFloat(line.slice(38, 46)),
-                                        parseFloat(line.slice(46, 54)));
+                                        parseFloat(line.slice(46, 54)));		
 
-            let BFactor = parseFloat(line.slice(61,66));;
+            let BFactor = parseFloat(line.slice(61,66));;			
             let elem = line.slice(76, 78).trim().toUpperCase();
 
             if ( serial && name && resName && chainId && resSeq && pos.x && pos.y && pos.z ){
 
                  //variables for setting zoom and for calculates bonds
                 (minY > pos.y)? setMinY(pos.y) : setMinY(minY);
-                (maxY < pos.y)? setMaxY(pos.y) : setMaxY(maxY);
+                (maxY < pos.y)? setMaxY(pos.y) : setMaxY(maxY); 
                 (minX > pos.x)? setMinX(pos.x) : setMinX(minX); (maxX < pos.x)? setMaxX(pos.x) : setMaxX(maxX);
                 (minZ > pos.z)? setMinZ(pos.z) : setMinZ(minZ); (maxZ < pos.z)? setMaxZ(pos.z) : setMaxZ(maxZ);
 
@@ -349,22 +347,22 @@ for (let i = 0; i < bond_count.length; i++){
                 let atomo = {pos : pos, name : name,		//ligand atom
                      resName : resName, chainId : chainId, resSeq : resSeq,
                     serial : serial, nonCovBonds : [] };
-
+            
                 if ( elem ) {
                     atomo.elem = elem;
                     atomo.color = COLOR.color[elem];
                 }
                 else{
                     if (COLOR.color[name.slice(0,1)]) {
-                        atomo.elem = name.slice(0,1);
+                        atomo.elem = name.slice(0,1); 
                         atomo.color = COLOR.color[name.slice(0,1)];
                     } else {
-                        atomo.elem = name.slice(0,2);
+                        atomo.elem = name.slice(0,2); 
                         atomo.color = COLOR.color[name.slice(0,2)];
-                    }
-                }
+                    }     
+                } 
                 if ( BFactor ) atomo.bFactor = BFactor;
-
+                
                 if ( resName == 'HOH') //solvent
                     Solvents.push(atomo);
                 else
@@ -374,12 +372,12 @@ for (let i = 0; i < bond_count.length; i++){
                 if ( !LindexArray[chainId+':'+resSeq+':'+resName] )       LindexArray[chainId+':'+resSeq+':'+resName] = [];
                LindexArray[chainId+':'+resSeq+':'+resName].push(serial);
             }
-        }
+        }  
         function readConect( line ){
             let flag;
             let ligStart;
 
-            let atom1 = line.slice(6, 11).trim();
+            let atom1 = line.slice(6, 11).trim(); 
             let atom2 = line.slice(11, 16).trim();
             let atom3 = line.slice(16, 21).trim();
             let atom4 = line.slice(21, 26).trim();
@@ -390,7 +388,7 @@ for (let i = 0; i < bond_count.length; i++){
             Atomi[atom1] ? flag = false : flag = true;
 
             try{
-
+                
                 addBond(atom1,atom2,flag);
                 addBond(atom1,atom3,flag);
                 addBond(atom1,atom4,flag);
@@ -398,7 +396,7 @@ for (let i = 0; i < bond_count.length; i++){
 
             }catch{ console.log("Conect records not formatted correctly!")}
         }
-        //covalent bonds  ->   radius1 + radius2 + tolerance O(n)
+        //covalent bonds  ->   radius1 + radius2 + tolerance O(n)   
         function covalentBonds( atoms, type ){
 
                 let nVectX = (maxX-minX)/2;   let nVectY = (maxY-minY)/2;   let nVectZ = (maxZ-minZ)/2;
@@ -408,7 +406,7 @@ for (let i = 0; i < bond_count.length; i++){
                     cont[i] = new Array();
                     for(var j=0; j<nVectY; j++)
                         cont[i][j] = new Array();
-                }
+                }		
 
                 Object.keys(atoms).forEach(serial => {
                     if(Atomi[serial] == "TER") return;
@@ -416,16 +414,16 @@ for (let i = 0; i < bond_count.length; i++){
                     let indeX = Math.floor(((atoms[serial].pos.x) - minX)/2);
                     let indeY = Math.floor(((atoms[serial].pos.y) - minY)/2);
                     let indeZ = Math.floor(((atoms[serial].pos.z) - minZ)/2);
-
+                    
                     if( cont[indeX][indeY][indeZ] == undefined)
                         cont[indeX][indeY][indeZ] = new Array();
 
-                    cont[indeX][indeY][indeZ].push(atoms[serial]);
+                    cont[indeX][indeY][indeZ].push(atoms[serial]);	
                 });
 
 
                 //CALCOLO COLLEGAMENTI
-                let cache = COLOR.CovalentRadius;
+                let cache = COLOR.CovalentRadius; 
                     for(var i=0; i<nVectX; i++)
                         for(var j=0; j<nVectY; j++)
                             for(var k=0; k<nVectZ; k++){
@@ -448,14 +446,14 @@ for (let i = 0; i < bond_count.length; i++){
                                                 if(!cont[iXs2][iYs2][iZs2]) continue;
 
                                                 cont[iXs2][iYs2][iZs2].forEach((other) =>{
-                                                    var dist = calcola_Distanza(atom, other);
+                                                    var dist = calcola_Distanza(atom, other);	
                                                     var raggio1 = cache[atom.elem];               //potrebbe non esserci il covalent radius del seguente atomo
                                                     var raggio2 = cache[other.elem];
 
                                                     if(raggio1+raggio2 + TOLLERANZA > dist){
                                                         if (type == 'ligands')
                                                             LigandBonds.push({atom1: atom, atom2: other })
-                                                        else
+                                                        else 
                                                             AtomBonds.push({atom1: atom, atom2: other });}
                                                 });
                                             }
@@ -464,25 +462,25 @@ for (let i = 0; i < bond_count.length; i++){
 
                     cont.splice(0,cont.length);
         }
-
+    
         if (Helix.length > 0) Helix.sort(compareSheetHelix);
         if (Sheet.length > 0) {
-            Sheet.sort(compareSheetHelix);
-            setSheet(Sheet.filter(checkDuplicates));
+            Sheet.sort(compareSheetHelix); 
+            setSheet(Sheet.filter(checkDuplicates));  
         }
         //if ( !isInOrder ) OrderedBackbone.sort();
         console.log("Chain found : " + ter);
         if ( Atomi.length > 0)
             mediana.divideScalar(Object.keys(Atomi).length);
-        else
+        else 
             mediana.divideScalar(Object.keys(Ligands).length);
         if(  Object.keys(Atomi).length )
             covalentBonds( Atomi, 'atoms' );
         if ( !updated ){//PDB has no atom info
             document.getElementById("sidebar-header").innerHTML = proteinName;
-            setPDBinfo( proteinName );
+            setPDBinfo( proteinName );    
         }
-
+        
         if(  Object.keys(Ligands).length )
             covalentBonds( Ligands, 'ligands' );
         //add missing atoms to Loop
@@ -499,7 +497,7 @@ for (let i = 0; i < bond_count.length; i++){
         //                 found1 = true;
         //                 if ( l == Loop.length-1 ) found2 = true;
         //             } else if ( Loop[l].atoms[Loop[l].atoms.length-1].resSeq == Helix[h].start-1 &&  Loop[l].atoms[Loop[l].atoms.length-1].chainId == Helix[h].startChainId){
-        //                 //l'ultimo atomo di un loop è il primo del ribbon dopo
+        //                 //l'ultimo atomo di un loop è il primo del ribbon dopo   
         //                 Loop[l].atoms.push(Helix[h].atoms[0]);
         //                 Loop[l].positions.push(Helix[h].positions[0]);
         //                 Loop[l].atoms.push(Helix[h].colors[0]);
@@ -507,7 +505,7 @@ for (let i = 0; i < bond_count.length; i++){
         //                 if (l == 0) found1 = true;
         //             }
         //             if ( Loop[l].atoms[0].resSeq >= Helix[h].end && Loop[l].atoms[0].chainId == Helix[h].startChainId)
-        //                 h++;
+        //                 h++; 
 
         //         }
         //         if ( Sheet[s] ){
@@ -519,7 +517,7 @@ for (let i = 0; i < bond_count.length; i++){
         //                 found1 = true;
         //                 if ( l == Loop.length-1 ) found2 = true;
         //             } else if ( Loop[l].atoms[Loop[l].atoms.length-1].resSeq == Sheet[s].start-1 &&  Loop[l].atoms[Loop[l].atoms.length-1].chainId == Sheet[s].startChainId){
-        //                 //l'ultimo atomo di un loop è il primo del ribbon dopo
+        //                 //l'ultimo atomo di un loop è il primo del ribbon dopo   
         //                 Loop[l].atoms.push(Sheet[s].atoms[0]);
         //                 Loop[l].positions.push(Sheet[s].positions[0]);
         //                 Loop[l].colors.push(Sheet[s].colors[0]);
@@ -531,24 +529,24 @@ for (let i = 0; i < bond_count.length; i++){
         //         }
         //     }
         // }
-
+        
         // //add missing loops between ribbons
         // for ( let h in Helix ){
-
+            
         //     for ( let s in Sheet ){
-        //         if ( Helix[])
+        //         if ( Helix[])    
         //     }
         // }
-
-
-
-    } catch( all ) {
+        
+        
+       
+    } catch( all ) {  
         console.log("Parsing error: " + all.message );
     //    alert("Parsing error: " + all.message );
         return false;
     }
 
-
+    
     //fill information modal
     $("#infomodalbody").html("<strong>Residue Sequence:</strong><br><br>");
     for ( let chain in chains ){
@@ -558,12 +556,12 @@ for (let i = 0; i < bond_count.length; i++){
     if ( Atomi.length > 0 ){
         while( !flag ){
             if ( (rescount = Atomi[Object.keys(Atomi)[Object.keys(Atomi).length-counter]].resSeq) != undefined )
-                flag = true;
-            else
+                flag = true; 
+            else  
                 counter++;
         }
     }
-
+    
     //$("#infomodalbody").append("<strong>Residue count:</strong> "+resCount+"<br>");
     $("#infomodalbody").append("<strong>Residue count:</strong> "+rescount+"<br>");//at pos Atomi.length-1 there is a TER
     $("#infomodalbody").append("<strong>Chains:</strong> "+ter+"<br>");
@@ -571,21 +569,21 @@ for (let i = 0; i < bond_count.length; i++){
     $("#infomodalbody").append("<strong>Atoms:</strong> "+(Object.keys(Atomi).length-ter)+"<br>");
     $("#infomodalbody").append("<strong>Ligands:</strong> "+Object.keys(Ligands).length+"<br>");
     $("#infomodalbody").append("<strong>Water molecules:</strong> "+Solvents.length+"<br>");
-    $("#infomodalbody").append("<strong>Resolution:</strong> "+ resolution+"<br>" );
-
+    $("#infomodalbody").append("<strong>Resolution:</strong> "+ resolution+"<br>" );                   
+    
     $("#loading_parsing").html("Parsing: DONE");
-
+    
     renderizza();
     return true;
 }*/
 
-
+    
 ////////////////////////////////////////////////////////
 // PARSING NON-COVALENT BONDS XML FILE
 ////////////////////////////////////////////////////////
 
 export function parseXmlBonds( text ){
-
+        
     var cHBOND = 0, cVDW = 0, cIONIC = 0, cPIPISTACK = 0,cSBOND = 0;;
     var xml, parser;
     var temp_nodes = [];
@@ -599,7 +597,7 @@ export function parseXmlBonds( text ){
             xml.async = false;
             xml.loadXML(text);
         }
-
+    
         try {
             //parse nodes
             var xmlnodes = xml.getElementsByTagName( "node" );
@@ -608,34 +606,34 @@ export function parseXmlBonds( text ){
 
                 //v_Degree
                 //var degree = parseInt( data[2].childNodes[0].data );
-
+                
                 //v_nodeID
                 //var nodeID = data[4].childNodes[0].data;
                 var nodeID = xmlnodes[i].querySelector("data[key=v_NodeId]").innerHTML
 
                 //remove the third field of node_id
                 //nodeID = nodeID.replace(/^(.*:)(.*:)(.*:)(.*)$/,'$1$2$4');
-
+                
                 //Attributi extra per nodi della RIN
                 var res = xmlnodes[i].querySelector("data[key=v_Name]").innerHTML;
                 var deg = parseInt( xmlnodes[i].querySelector("data[key=v_Degree]").innerHTML);
                 var ch = xmlnodes[i].querySelector("data[key=v_Chain]").innerHTML;
-
+                
                 var col_res = paint_by_residue(res);
                 var col_ch = paint_by_chain(ch);
                 var col_deg = paint_by_degree(deg);
                 var col_pol = paint_by_polarity(res);
                 var nodeRIN = {
                     id : nodeID,
-                    residue : res,
-                    degree : deg,
-                    chain : ch,
+                    residue : res, 
+                    degree : deg, 
+                    chain : ch, 
                     col_res : col_res,
-                    col_ch : col_ch,
+                    col_ch : col_ch, 
                     col_deg : col_deg,
                     col_pol : col_pol,
                 };
-
+                
                 nodesRIN.push(nodeRIN);
 
                 //creazione dati esportati per la creazione dei grafici
@@ -653,20 +651,21 @@ export function parseXmlBonds( text ){
 
                 var distance;
                 if (data[0].childNodes[0])
-                    //distance = parseFloat( data[0].childNodes[0].data );
-                    distance = parseFloat( xmledges[i].querySelector("data[key=e_Distance]").innerHTML );
+                    //distance = parseFloat( data[0].childNodes[0].data ); 
+                    distance = parseFloat( xmledges[i].querySelector("data[key=e_Distance]").innerHTML ); 
                     //e_Distance
-
+                
                 var interaction
+                 
                 if (data[1].childNodes[0])
                     //interaction = data[1].childNodes[0].data;  //e_Interaction
                     interaction = xmledges[i].querySelector("data[key=e_Interaction]").innerHTML;  //e_Interaction
-
+                
                 var angle;
                 if (data[2].childNodes[0])
                     //angle = parseFloat(data[2].childNodes[0].data); //e_Angle
                     angle = parseFloat(xmledges[i].querySelector("data[key=e_Angle]").innerHTML); //e_Angle
-
+                
                 var energy;
                 if (data[5].childNodes[0])
                     //energy = data[5].childNodes[0].data; //e_Energy
@@ -678,8 +677,8 @@ export function parseXmlBonds( text ){
                     intType = interaction;
                 else {
                     intExt = interaction.substring(index + 1); //MC_MC,SC_MC ecc
-                // subtypenode_subtypenode, where subtype = main chain (MC), side chain (SC) and ligand (LIG).
-                    intType = interaction.substring(0,index);
+                    // subtypenode_subtypenode, where subtype = main chain (MC), side chain (SC) and ligand (LIG).
+                    intType = interaction.substring(0,index); 
 
                     if(intType == 'HBOND'){
                         if(intExt == 'MC_MC'){
@@ -727,8 +726,8 @@ export function parseXmlBonds( text ){
                 //π-cation (PICATION): color: #9acd32
                 //Inter-Atomic Contact (IAC) color: # dcdcdc
 
-                //var atomName1 = data[6].childNodes[0].data; //e_Atom1
-                var atomName1 = xmledges[i].querySelector("data[key=e_Atom1]").innerHTML; //e_Atom1
+                //var atomName1 = data[6].childNodes[0].data; //e_Atom1         
+                var atomName1 = xmledges[i].querySelector("data[key=e_Atom1]").innerHTML; //e_Atom1         
                 //var atomName2 = data[7].childNodes[0].data; //e_Atom2
                 var atomName2 = xmledges[i].querySelector("data[key=e_Atom2]").innerHTML; //e_Atom2
                 //var color = COLOR.nonCovalentBonds[ intType ];
@@ -737,7 +736,7 @@ export function parseXmlBonds( text ){
                 var regex1 = atomName1.match( /^([-]?\d*\.\d*),([-]?\d*\.\d*),([-]?\d*\.\d*)$/);
                 var regex2 = atomName2.match( /^([-]?\d*\.\d*),([-]?\d*\.\d*),([-]?\d*\.\d*)$/);
 
-                var pos1 = undefined , pos2 = undefined;
+                var pos1 = undefined , pos2 = undefined; 
                 if ( regex1 ){
                     let x = parseFloat(regex1[1]);
                     let y = parseFloat(regex1[2]);
@@ -764,7 +763,7 @@ export function parseXmlBonds( text ){
                 var isLigand1 = false, isLigand2 = false;
                 //var idxs1 = getAllIndexes( indexArray, nodeID1);
                 //var idxs2 = getAllIndexes( indexArray, nodeID2);
-
+                
                 /*var idxs1 = indexArray[nodeID1];
                 var idxs2 = indexArray[nodeID2];
 
@@ -814,7 +813,7 @@ export function parseXmlBonds( text ){
                         node1.nonCovBonds.push(intType);
                         nodes.push(node1);
                     }
-                }
+                } 
                 k = 0, found = false;
 
                 if ( idxs2.length > 0 && !pos2){ // !pos2????
@@ -851,13 +850,13 @@ export function parseXmlBonds( text ){
 
                 var edge = { distance : distance, energy: energy, angle: angle,interaction : intType, atom1 : atomName1, atom2 : atomName2, coord1 : pos1, coord2 : pos2, node1 : node1, node2: node2, serial : serial, color : color };
                 edges.push(edge);*/
-
+                
                 //Attributi archi per la RIN
                 var clr_type = paintLink_type(interaction);
                 var clr_dist = paintLink_dist(interaction, distance,atomName1,atomName2);
                 var cat = source.concat('#').concat(target);
                 var flipcat = target.concat('#').concat(source);
-
+                
                 var edgeRIN = {
                     source : source,
                     target : target,
@@ -874,9 +873,9 @@ export function parseXmlBonds( text ){
                     flipcategory : flipcat ,
                     position : i
                 };
-
+                 
                 linksRIN.push(edgeRIN);
-
+ 
                 //creazione dati esportati per la creazione dei grafici
                 var energy_float = parseFloat(energy)
                 if (interaction.includes(':')){
@@ -890,9 +889,9 @@ export function parseXmlBonds( text ){
                     avg_e_bond[bond_to_i[interaction]] += energy_float;
                     avg_dist_bond[bond_to_i[interaction]] += distance;
                 }
-
-                serial++;
-
+                
+                serial++;   
+                 
             }
 
             var total = 0;
@@ -914,7 +913,7 @@ export function parseXmlBonds( text ){
                     avg_dist_bond[i] = roundAccurately((avg_dist_bond[i]/bond_count[i]),4)
             }
             //raggruppiamo i legami in base a source e target
-
+            
 
             for (var i = 0; i < linksRIN.length; ++i) {
                 var category = linksRIN[i].category;
@@ -928,12 +927,12 @@ export function parseXmlBonds( text ){
                 }
                     else {
                         map[category].push(linksRIN[i].position);
-                    }
+                    }  
             }
             function isOdd(num) { return num % 2;}
-
+            
             //Ora aggiorno la curvatura
-            for (var i in map){
+            for (var i in map){ 
                 if ((map[i].length) > 1){ //se si ha un solo bond tra quei du particolari amminoacidi non c'è bisogno di curvare l'unico arco
                     var ceiling = 0.3
                     if (isOdd(map[i].length)){
@@ -944,7 +943,7 @@ export function parseXmlBonds( text ){
                     else{
                         var half = (map[i].length)/2.0
                         var step = ceiling/half
-                        var start = (step*half)*-1
+                        var start = (step*half)*-1                             
                     }
 
                     for (var j=0; j<(map[i].length);j++){
@@ -962,12 +961,12 @@ export function parseXmlBonds( text ){
                 }
             }
 
-        } catch( all ) {
+        } catch( all ) {  
             console.log("Unexpected error while reading RIN: it seems that intermolecular bonds can not be calculated for this molecule " + all.message );
             //alert("Unexpected error while reading RIN: it seems that intermolecular bonds can not be calculated for this molecule.");
             return false;
         }
-
+    
         /*$("#infomodalbody").append("<br><strong>RIN information:</strong><br> ");
         $("#infomodalbody").append("<br><strong>RIN nodes:</strong> "+nodes.length);
         $("#infomodalbody").append("<br><strong>RIN edges:</strong> "+edges.length);
@@ -976,7 +975,7 @@ export function parseXmlBonds( text ){
         $("#infomodalbody").append("<br><strong>IONIC edges:</strong> "+cIONIC);
         $("#infomodalbody").append("<br><strong>VDW edges:</strong> "+cVDW);
         $("#infomodalbody").append("<br><strong>PIPISTACK edges:</strong> "+cPIPISTACK);
-
+    
         renderNonCovBonds();*/
         console.log(res_count)
         return true;

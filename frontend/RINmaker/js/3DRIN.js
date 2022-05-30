@@ -1,6 +1,6 @@
 import { nodesRIN, linksRIN ,parseXmlBonds} from "./Parsing.js";
 import {myChart0, myChart, myChart2, myChart3, myChart4} from "./chart.js";
-import {ENDPOINT} from "../../env.js";
+import {ENDPOINT} from "../../env.js"
 
 var params = JSON.parse(getCookie('params3D'));
 const regexpPDB = /^[\w\-_\s]+.pdb$/;
@@ -8,7 +8,7 @@ const regexpPDB = /^[\w\-_\s]+.pdb$/;
 var url;
 var pdbname = params.pdbname;
 var urlFromContent = ENDPOINT + "/api/requestxml/fromcontent";
-var urlFromName = ENDPOINT + "/api/requestxml/fromname";
+var urlFromName = ENDPOINT + "https://ring.dais.unive.it:8002/api/requestxml/fromname";
 
 var divName = document.getElementById('pdbname');
 if(!params.pdbname.match(regexpPDB)){
@@ -61,11 +61,15 @@ $.ajax({
         var xml =  res.data.xml;
         parseXmlBonds(xml);
 
+        linksRIN.forEach(link => {
+            link.visibility = true;
+        });
+
         const gData = {
             nodes: nodesRIN,
             links: linksRIN
         };
-
+        
         const elem = document.getElementById('graph');
 
         const Graph = ForceGraph3D()(elem)
@@ -79,15 +83,15 @@ $.ajax({
             .linkColor('color_type')
             .linkOpacity(0.6)
             .linkWidth(1.5)
-            .linkCurvature(edge => edge.curvature * (-2)) //aumento la curvatura nella versione 3D per distinguere meglio i legami
+            .linkCurvature(edge => edge.curvature * (-2)) //aumento la curvatura nella versione 3D per distinguere meglio i legami 
             .nodeRelSize(2)
             .backgroundColor('#FFFFFF')
             .onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
             .onLinkHover(edge => elem.style.cursor = edge ? 'pointer' : null)
             .warmupTicks(100)
             .cooldownTime(3000)
-
-
+            
+        
         Graph.d3AlphaDecay(0.02)
         Graph.d3VelocityDecay(0.7)
 
@@ -106,7 +110,7 @@ $.ajax({
             Graph.cooldownTicks(0);
         }
 
-        const gravity = Graph.d3Force('charge');
+        const gravity = Graph.d3Force('charge'); 
 
         var numberNodes = document.getElementById('numberNode');
         numberNodes.innerHTML = '<p>Nodes: <span style="color: #FF6347">' + Object.keys(nodesRIN).length + '</span></p>';
@@ -128,7 +132,7 @@ $.ajax({
             gravity.strength(this.value);
             Graph.d3ReheatSimulation();
         }
-
+        
         const linkForce = Graph.d3Force('link');
 
         var rangesliderDistance = document.getElementById("sliderDistance");
@@ -139,7 +143,7 @@ $.ajax({
             linkForce.distance(this.value);
             Graph.d3ReheatSimulation();
         }
-
+        
         var div = document.getElementById("svg");
         div.innerHTML=`<svg width="285" height="80"><g class="lgnode" transform="translate(5, 10)"><circle r="4" x="10px" fill="blue" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">ARG</text></g><g class="lgnode" transform="translate(65, 10)"><circle r="4" x="10px" fill="blue" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">LYS</text></g><g class="lgnode" transform="translate(125, 10)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">CYS</text></g><g class="lgnode" transform="translate(185, 10)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">ILE</text></g><g class="lgnode" transform="translate(245, 10)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">LEU</text></g><g class="lgnode" transform="translate(5, 25)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">MET</text></g><g class="lgnode" transform="translate(65, 25)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">PHE</text></g><g class="lgnode" transform="translate(125, 25)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">PRO</text></g><g class="lgnode" transform="translate(185, 25)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">TRP</text></g><g class="lgnode" transform="translate(245, 25)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">TYR</text></g><g class="lgnode" transform="translate(5, 40)"><circle r="4" x="10px" fill="green" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">VAL</text></g><g class="lgnode" transform="translate(65, 40)"><circle r="4" x="10px" fill="magenta" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">ASN</text></g><g class="lgnode" transform="translate(125, 40)"><circle r="4" x="10px" fill="magenta" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">GLN</text></g><g class="lgnode" transform="translate(185, 40)"><circle r="4" x="10px" fill="magenta" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">HIS</text></g><g class="lgnode" transform="translate(245, 40)"><circle r="4" x="10px" fill="orange" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">ALA</text></g><g class="lgnode" transform="translate(5, 55)"><circle r="4" x="10px" fill="orange" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">GLY</text></g><g class="lgnode" transform="translate(65, 55)"><circle r="4" x="10px" fill="orange" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">SER</text></g><g class="lgnode" transform="translate(125, 55)"><circle r="4" x="10px" fill="orange" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">THR</text></g><g class="lgnode" transform="translate(185, 55)"><circle r="4" x="10px" fill="red" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">ASP</text></g><g class="lgnode" transform="translate(245, 55)"><circle r="4" x="10px" fill="red" style="stroke-width: 0px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">GLU</text></g><g class="lgnode" transform="translate(5, 70)"><circle r="4" x="10px" fill="grey" style="stroke-width: 1px; stroke: black;"></circle><text font-size="10" y="5px" x="10px" fill="#FFFFFF">LIG</text></g></svg>`;
         var div2 = document.getElementById("svglink");
@@ -174,8 +178,8 @@ $.ajax({
             </g>
         </svg>`;
 
-
-
+        
+        
         var nodeColor = document.getElementById("nodeColor");
         nodeColor.onchange = function select() {
             var strUser = nodeColor.options[nodeColor.selectedIndex].text;
@@ -258,6 +262,13 @@ $.ajax({
 
         var linkColor = document.getElementById("linkColor");
         linkColor.onchange = function select() {
+            document.getElementById("vdwCheckBox").checked = true;
+            document.getElementById("hbondCheckBox").checked = true;
+            document.getElementById("pipistackCheckBox").checked = true;
+            document.getElementById("ssbondCheckBox").checked = true;
+            document.getElementById("ionicCheckBox").checked = true;
+            document.getElementById("iacCheckBox").checked = true;
+            document.getElementById("picationCheckBox").checked = true;
             var strUser = linkColor.options[linkColor.selectedIndex].text;
             if(strUser == 'Uniform'){
                 Graph.linkColor("color_uni")
@@ -304,6 +315,211 @@ $.ajax({
                 div.innerHTML="<div></div>";
             }
         }
+
+        var vdwCheckBox = document.getElementById("vdwCheckBox");
+        vdwCheckBox.addEventListener('change', function(){
+            console.log(this.checked);
+            $("#linkColor")[0].selectedIndex = 1;
+            if(this.checked == false){
+                Graph.linkColor((link) => {
+                    
+                    if(link.interaction.includes("VDW") && link.visibility){
+                        link.visibility = false;
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else return link.color_type;
+                });
+                
+            } else {
+                Graph.linkColor((link) => {
+                    if(link.interaction.includes("VDW") && !link.visibility){
+                        link.visibility = true;
+                        return link.color_type;
+                    } else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    } else return link.color_type;
+                });
+                
+            }
+        })
+
+        var hbondCheckBox = document.getElementById("hbondCheckBox");
+        hbondCheckBox.addEventListener('change', function(){
+            $("#linkColor")[0].selectedIndex = 1;
+            if(this.checked == false){
+                Graph.linkColor((link) => {
+                    
+                    if(link.interaction.includes("HBOND") && link.visibility){
+                        link.visibility = false;
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else return link.color_type;
+                });
+                
+            } else {
+                Graph.linkColor((link) => {
+                    if(link.interaction.includes("HBOND") && !link.visibility){
+                        link.visibility = true;
+                        return link.color_type;
+                    } else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    } else return link.color_type;
+                });
+                
+            }
+        })
+
+        var pipistackCheckBox = document.getElementById("pipistackCheckBox");
+        pipistackCheckBox.addEventListener('change', function(){
+            $("#linkColor")[0].selectedIndex = 1;
+            if(this.checked == false){
+                Graph.linkColor((link) => {
+                    
+                    if(link.interaction.includes("PIPISTACK") && link.visibility){
+                        link.visibility = false;
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else return link.color_type;
+                });
+                
+            } else {
+                Graph.linkColor((link) => {
+                    if(link.interaction.includes("PIPISTACK") && !link.visibility){
+                        link.visibility = true;
+                        return link.color_type;
+                    } else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    } else return link.color_type;
+                });
+                
+            }
+        })
+
+        var ssbondCheckBox = document.getElementById("ssbondCheckBox");
+        ssbondCheckBox.addEventListener('change', function(){
+            $("#linkColor")[0].selectedIndex = 1;
+            if(this.checked == false){
+                Graph.linkColor((link) => {
+                    
+                    if(link.interaction.includes("SSBOND") && link.visibility){
+                        link.visibility = false;
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else return link.color_type;
+                });
+                
+            } else {
+                Graph.linkColor((link) => {
+                    if(link.interaction.includes("SSBOND") && !link.visibility){
+                        link.visibility = true;
+                        return link.color_type;
+                    } else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    } else return link.color_type;
+                });
+                
+            }
+        })
+
+        var ionicCheckBox = document.getElementById("ionicCheckBox");
+        ionicCheckBox.addEventListener('change', function(){
+            $("#linkColor")[0].selectedIndex = 1;
+            if(this.checked == false){
+                Graph.linkColor((link) => {
+                    
+                    if(link.interaction.includes("IONIC") && link.visibility){
+                        link.visibility = false;
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else return link.color_type;
+                });
+                
+            } else {
+                Graph.linkColor((link) => {
+                    if(link.interaction.includes("IONIC") && !link.visibility){
+                        link.visibility = true;
+                        return link.color_type;
+                    } else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    } else return link.color_type;
+                });
+                
+            }
+        })
+
+        var iacCheckBox = document.getElementById("iacCheckBox");
+        iacCheckBox.addEventListener('change', function(){
+            $("#linkColor")[0].selectedIndex = 1;
+            if(this.checked == false){
+                Graph.linkColor((link) => {
+                    
+                    if(link.interaction.includes("IAC") && link.visibility){
+                        link.visibility = false;
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else return link.color_type;
+                });
+                
+            } else {
+                Graph.linkColor((link) => {
+                    if(link.interaction.includes("IAC") && !link.visibility){
+                        link.visibility = true;
+                        return link.color_type;
+                    } else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    } else return link.color_type;
+                });
+                
+            }
+        })
+
+        var picationCheckBox = document.getElementById("picationCheckBox");
+        picationCheckBox.addEventListener('change', function(){
+            $("#linkColor")[0].selectedIndex = 1;
+            if(this.checked == false){
+                Graph.linkColor((link) => {
+                    
+                    if(link.interaction.includes("PICATION") && link.visibility){
+                        link.visibility = false;
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    }
+                    else return link.color_type;
+                });
+                
+            } else {
+                Graph.linkColor((link) => {
+                    if(link.interaction.includes("PICATION") && !link.visibility){
+                        link.visibility = true;
+                        return link.color_type;
+                    } else if(link.visibility == false){
+                        return 'rgba(0, 0, 0, 0)';
+                    } else return link.color_type;
+                });
+                
+            }
+        })
+
         elementResizeDetectorMaker().listenTo(
             document.getElementById('content'),
             el => Graph.width(el.offsetWidth - 165)
@@ -313,15 +529,15 @@ $.ajax({
             var element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
             element.setAttribute('download', filename);
-
+        
             element.style.display = 'none';
             document.body.appendChild(element);
-
+        
             element.click();
-
+        
             document.body.removeChild(element);
         }
-
+        
         document.getElementById("downloadXml").addEventListener("click", function(){
             download(pdbname.slice(0, -4) + ".xml", xml);
         }, false);
@@ -350,7 +566,7 @@ $.ajax({
                     {
                         image: logo,
                         width:155,
-
+                        
                     },
                     '\n',
                     { text: 'Report for ' + pdbname, style: 'header' },
@@ -361,8 +577,8 @@ $.ajax({
                         '\n',
                         { text:'Edges: ', style:'subheader'}, Object.keys(linksRIN).length,
                         '\n',
-
-
+                        
+    
                     ]},
                     '\n',
                     { text: 'Hydrogen bonds per type (in %)', style: 'header' },
@@ -388,7 +604,7 @@ $.ajax({
                         image: newCanvasImg,
                         fit: [350, 350],
                         alignment: 'center'
-
+                        
                     },
 
                     {
@@ -397,7 +613,7 @@ $.ajax({
                             heights: 15,
                             body: createTable(myChart),
 
-
+                      
                         }
                     },
                     '\n',
@@ -406,7 +622,7 @@ $.ajax({
                         image: newCanvasImg2,
                         fit: [350, 350],
                         alignment: 'center'
-
+                        
                     },
 
                     {
@@ -415,7 +631,7 @@ $.ajax({
                             heights: 15,
                             body: createTable(myChart2),
 
-
+                      
                         }
                     },
                     '\n',
@@ -424,16 +640,16 @@ $.ajax({
                         image: newCanvasImg3,
                         fit: [350, 350],
                         alignment: 'center'
-
+                        
                     },
-
+                    
                     {
                         style: 'tableExample',
                         table: {
                             heights: 15,
                             body: createTable(myChart3),
 
-
+                      
                         }
                     },
                     { text: 'Average distance per type of bond', style: 'header' },
@@ -441,24 +657,24 @@ $.ajax({
                         image: newCanvasImg4,
                         fit: [350, 350],
                         alignment: 'center'
-
+                        
                     },
-
+                    
                     {
                         style: 'tableExample',
                         table: {
                             heights: 15,
                             body: createTable(myChart4),
 
-
+                      
                         }
                     },
 
-
+                    
                 ],
                 styles: {
                     header: {
-
+                        
                         fontSize: 18,
                         bold: true,
                         margin: [0, 0, 0, 10]
@@ -508,7 +724,7 @@ $.ajax({
             const createPdf  = pdfMake.createPdf(dd);
             var base64data = null;
             createPdf.getBase64(function (encodedString) {
-                base64data = encodedString;
+                base64data = encodedString;           
                 var byteCharacters = atob(base64data);
                 var byteNumbers = new Array(byteCharacters.length);
                 for (var i = 0; i < byteCharacters.length; i++) {
@@ -517,14 +733,14 @@ $.ajax({
                 var byteArray = new Uint8Array(byteNumbers);
                 var file = new Blob([byteArray], { type: 'application/pdf;base64' });
                 if (window.navigator.msSaveBlob) {
-
+                    
                     window.navigator.msSaveBlob(file, 'report-'+pdbname.slice(0, -4));
-
-
+                   
+                    
                 } else {
-
+                    
                     saveAs(file, 'report-'+pdbname.slice(0, -4));
-
+                    
                 }
             });
         }
@@ -554,12 +770,12 @@ $.ajax({
             }else if(xhr.responseJSON.error.code == 500){
                 var error = document.getElementById("error");
                 error.innerHTML = "<h1 class=display-6 style='color:red'>"+"Internal Error, please try again later"+"</h1>";
-            }
+            }  
             document.getElementById("bar-chart").outerHTML = "";
             document.getElementById("doughnut-chart").outerHTML = "";
             document.getElementById("h1-chart").outerHTML = "";
             document.getElementById("h2-chart").outerHTML = "";
-        }
+        }    
     }
 });
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-
+    
 </head>
 
 <body>
@@ -59,7 +59,7 @@
 
                 <hr>
 
-                <div class="row">
+                <div id="alertPerf" class="row">
                     <div id="alertPerf" class="col-sm">
                     </div>
                 </div>
@@ -68,7 +68,7 @@
 
                 <div class="row">
                     <div class="col-sm">
-
+                        
                         <a id="gravity">Gravity:</a>
                         <div class="rangeslider" >
                             <input type="range" min="-150" max="50" step="2" value="0" id="sliderGravity">
@@ -89,23 +89,96 @@
                     </div>
                 </div>
 
+                <hr>
+                <div>Edge types:</div><br>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="hbondCheckBox" style="background-color: lightskyblue;" checked>
+                            <label class="form-check-label" for="hbondCheckBox">
+                                H-bond
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="vdwCheckBox" style="background-color: gold;" checked>
+                            <label class="form-check-label" for="vdwCheckBox">
+                                van der Waals
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="pipistackCheckBox" style="background-color: red;" checked>
+                            <label class="form-check-label" for="pipistackCheckBox">
+                                π-π Stack
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="ssbondCheckBox" style="background-color: #9C31F9;" checked>
+                            <label class="form-check-label" for="ssbondCheckBox">
+                                ss-bond
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="ionicCheckBox" style="background-color: blue;" checked>
+                            <label class="form-check-label" for="ionicCheckBox">
+                                Ionic
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="iacCheckBox" style="background-color: gainsboro;" checked>
+                            <label class="form-check-label" for="iacCheckBox">
+                                IAC
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="picationCheckBox" style="background-color: yellowgreen;" checked>
+                            <label class="form-check-label" for="picationCheckBox">
+                                π-Cation
+                            </label>
+                        </div>
+                    </div>
+                </div>
 
+            
 
                 <hr>
 
                 <div id="wait2" class="text-center">
-                    <img src="img/waiting2.gif" width="70" height="70" alt="loading"/>
+                    <img src="img/waiting2.gif" width="70" height="70"/>
                 </div>
 
                 <div class="col-sm">
                     <div class="row">
                         <div id="svglink" class="col-sm">
-
+                    
                         </div>
                     </div>
                     <div class="row">
                         <div id="svg" class="col-sm">
-
+                    
                         </div>
                     </div>
                 </div>
@@ -115,7 +188,7 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="d-grid gap-2">
-                            <a class="btn btn-primary" role="button" href="../RINmaker/index.php">
+                            <a class="btn btn-primary" role="button" href="../RINmaker/index.html">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                                     <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
                                 </svg>
@@ -163,11 +236,11 @@
                                 </svg>
                                 2D Visualization
                             </button>
-
+                            
                         </div>
                     </div>
                 </div>
-
+      
             </div>
 
         </nav>
@@ -181,7 +254,7 @@
                     <span></span>
                     <span></span>
                 </button>
-
+                    
             </nav>
             <br>
 
@@ -189,12 +262,12 @@
 
             <div id="wait" class="text-center">
                 <h5 id="avviso">Attention! Large files may take longer to render</h5>
-                <img src="img/waiting.gif" width="130" height="130" alt="loading"/>
+                <img src="img/waiting.gif" width="130" height="130"/>
             </div>
 
-
+            
             <div id="graph" class="d-flex justify-content-center border"></div>
-
+            
 
         </div>
     </div>
@@ -203,13 +276,13 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Statistics</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Statistics</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-
+                
                     <div class="container">
                         <button id="downloadPdf" class="btn btn-primary" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
@@ -218,7 +291,7 @@
                             </svg>
                             Download PDF
                         </button>
-
+                        
                         <br><br>
                         <div class="row">
                             <div id="numberNode"></div>
@@ -233,19 +306,19 @@
                             </div>
 
                             <div class="col">
-
+                                
                                 <div class="chart-container">
                                     <canvas id="bar-chart"></canvas>
                                 </div>
                             </div>
                             <div class="col">
-
+                    
                                 <div class="chart-container">
                                     <canvas id="doughnut-chart" ></canvas>
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="row">
                             <div class="col">
                                 <hr>
@@ -253,7 +326,7 @@
                                     <canvas id="h1-chart"></canvas>
                                 </div>
                             </div>
-
+                            
                             <div class="col">
                                 <hr>
                                 <div class="chart-container">
@@ -272,17 +345,17 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Parameters</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Parameters</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-
+                    
                     <div id="displayParams"></div>
 
                 </div>
-
+            
             </div>
         </div>
     </div>
@@ -311,11 +384,11 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/element-resize-detector/dist/element-resize-detector.min.js"></script>
+    <script src="//unpkg.com/element-resize-detector/dist/element-resize-detector.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r124/three.min.js"></script>
     <script src="https://unpkg.com/force-graph"></script>
     <script src="https://unpkg.com/3d-force-graph"></script>
-    <script src="https://unpkg.com/d3-force-3d"></script>
+    <script src="https://unpkg.com/d3-force-3d"></script>   
     <script type="text/javascript" src="js/functions.js"></script>
     <script type="module" src="js/3DRIN.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
@@ -326,7 +399,7 @@
 
     <footer class="bg-light text-center text-lg-start">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1);">
-            © 2021 Ca' Foscari University of Venice
+            © 2022 Ca' Foscari University of Venice
         </div>
     </footer>
 
