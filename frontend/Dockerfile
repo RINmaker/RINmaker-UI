@@ -1,18 +1,15 @@
-FROM php:7-apache
+FROM nginx
 
-COPY 000-apache.conf /etc/apache2/sites-enabled/000-apache.conf
-COPY start-apache /usr/local/bin
-RUN a2enmod rewrite
+WORKDIR /app
+
+COPY default.conf.template /etc/nginx/templates/
 
 # Copy application source
-RUN mkdir /var/www/RINmaker
-RUN mkdir /var/www/XRmol
+RUN mkdir /app/static
+RUN mkdir /app/static/RINmaker
+RUN mkdir /app/static/XRmol
+RUN chown -R www-data:www-data /app/static
 
-COPY RINmaker /var/www/RINmaker/
-COPY XRmol /var/www/XRmol/
-COPY ./env.js /var/www/
-
-RUN chown -R www-data:www-data /var/www
-
-# CMD ["apache2-foreground"]
-CMD ["start-apache"]
+COPY RINmaker /app/static/RINmaker/
+COPY XRmol /app/static/XRmol/
+COPY ./env.js /app/static/
