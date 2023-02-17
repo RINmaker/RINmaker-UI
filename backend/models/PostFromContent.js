@@ -1,114 +1,99 @@
 const mongoose = require('mongoose');
-const constants = require('../includes/constants');
-const regexpPDB = /^[\w\-_\s]+.pdb$/;
 const regexpINT = /^\+?\d+$/;
 
 
 //create a json schema for xml requests by content and specifies the type of fields.
 //Also attaches functions for validation.
 const PostSchemaFromContent = mongoose.Schema({
-    pdbname: {
-        type: String, 
-        validate: {
-            validator: function(v){
-                return v.match(regexpPDB);
-            },
-            message: props => `${props.value} ${constants.NOT_VALID_NAME}`
-        },
-        required: [true , constants.FILE_NAME_REQ]
-    },
     content: {
         type: String,
-        required: [true, constants.CONTENT_REQ]
+        required: [true, "content property is required"]
+    },
+    pdbname: {
+        type: String,
+        required: [true, "pdbname property is required"]
+    },
+    no_hydrogen: {
+        type: Boolean
+    },
+    keep_water: {
+        type: Boolean,
     },
     seq_sep: {
         type: Number,
         validate: {
-            validator: function(v){
+            validator: function (v) {
                 return regexpINT.test(v);
             },
-            message: props => `${props.value} ${constants.NOT_VALID_NUM}`
+            message: props => "seq_sep property takes only positive integers"
         },
-        min: [constants.MIN_SEQ_SEP, `${constants.MIN_MESSAGE_UINT} ${constants.MIN_SEQ_SEP}`],
-        max: [constants.MAX_LIMIT, constants.MAX_MESSAGE_UINT]
+        min: [0, "seq_sep takes only positive integers"],
+        max: [20, "seq_sep takes only positive integers less than 20"]
     },
-    bond_control: {
-        type: String, 
-        enum: constants.BOND_CONTROL
+    illformed: {
+        type: String,
+        enum: ["fail", "kall", "kres", "sres"],
     },
-    interaction_type: {
-        type: String, 
-        enum: constants.INTERACTION_TYPE
+    isRin: {
+        type: Boolean,
+        required: [true, "isRin property is required"]
     },
-    net_policy: {
-        type: String, 
-        enum: constants.NET_POLICY
+    isCmap: {
+        type: Boolean,
+        required: [true, "isCmap property is required"]
     },
-    h_bond: {
+    policy: {
+        type: String,
+        enum: ["all", "multiple", "one"],
+    },
+    hydrogen_bond: {
         type: Number,
-        min: [constants.MIN_H_BOND, `${constants.MIN_MESSAGE} ${constants.MIN_H_BOND}`],
-        max: [constants.MAX_LIMIT, constants.MAX_MESSAGE]
+        min: [0, "hydrogen_bond takes only positive floats"],
+        max: [20, "hydrogen_bond takes only positive floats less than 20"]
     },
     vdw_bond: {
         type: Number,
-        min: [constants.MIN_VDW_BOND, `${constants.MIN_MESSAGE} ${constants.MIN_VDW_BOND}`],
-        max: [constants.MAX_LIMIT, constants.MAX_MESSAGE]
+        max: [20, "vdw_bond takes only floats less than 20"]
     },
     ionic_bond: {
         type: Number,
-        min: [constants.MIN_IONIC_BOND, `${constants.MIN_MESSAGE} ${constants.MIN_IONIC_BOND}`],
-        max: [constants.MAX_LIMIT, constants.MAX_MESSAGE]
-    },
-    generic_bond: {
-        type: Number,
-        min: [constants.MIN_GENERIC_BOND, `${constants.MIN_MESSAGE} ${constants.MIN_GENERIC_BOND}`],
-        max: [constants.MAX_LIMIT, constants.MAX_MESSAGE]
+        min: [0, "ionic_bond takes only positive floats"],
+        max: [20, "ionic_bond takes only positive floats less than 20"]
     },
     pication_bond: {
         type: Number,
-        min: [constants.MIN_PICATION_BOND, `${constants.MIN_MESSAGE} ${constants.MIN_PICATION_BOND}`],
-        max: [constants.MAX_LIMIT, constants.MAX_MESSAGE]
+        min: [0, "pication_bond takes only positive floats"],
+        max: [20, "pication_bond takes only positive floats less than 20"]
     },
     pipistack_bond: {
         type: Number,
-        min: [constants.MIN_PIPISTACK_BOND, `${constants.MIN_MESSAGE} ${constants.MIN_PIPISTACK_BOND}`],
-        max: [constants.MAX_LIMIT, constants.MAX_MESSAGE]
+        min: [0, "pipistack_bond takes only positive floats"],
+        max: [20, "pipistack_bond takes only positive floats less than 20"]
     },
     h_bond_angle: {
         type: Number,
-        validate: {
-            validator: function(v){
-                return v > 0;
-            },
-            message: `${constants.NEGATIVE_ANGLE_MESSAGE}`
-        }
+        min: [0, "h_bond_angle takes only positive numbers"],
     },
     pication_angle: {
         type: Number,
-        validate: {
-            validator: function(v){
-                return v > 0;
-            },
-            message: `${constants.NEGATIVE_ANGLE_MESSAGE}`
-        }
+        min: [0, "pication_angle takes only positive numbers"],
     },
     pipistack_normal_normal: {
         type: Number,
-        validate: {
-            validator: function(v){
-                return v > 0;
-            },
-            message: `${constants.NEGATIVE_ANGLE_MESSAGE}`
-        }
+        min: [0, "pipistack_normal_normal takes only positive numbers"],
     },
     pipistack_normal_centre: {
         type: Number,
-        validate: {
-            validator: function(v){
-                return v > 0;
-            },
-            message: `${constants.NEGATIVE_ANGLE_MESSAGE}`
-        }
+        min: [0, "pipistack_normal_centre takes only positive numbers"],
+    },
+    type: {
+        type: String,
+        enum: ["ca", "cb"],
+    },
+    distance: {
+        type: Number,
+        min: [0, "distance takes only positive numbers"],
+        max: [20, "distance takes only positive numbers less than 20"],
     }
 });
 
