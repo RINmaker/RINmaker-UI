@@ -1,7 +1,7 @@
 server {
-    listen ${PORT};
+    listen 4200;
 
-    root /app/static;
+    root /app;
     location / {
     }
 }
